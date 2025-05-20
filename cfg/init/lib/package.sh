@@ -78,19 +78,19 @@ function install_package_aurs_blackbird_basics() {
 
 
     ## open user permision
-    echo 'h3x0r ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/00_lektor
+    echo 'h3x0r ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/00_lektor &&
 
 
     ## aur package manager
-    sudo -H -u h3x0r -c "git clone https://aur.archlinux.org/yay /tmp/yay"
-    sudo -H -u h3x0r -c "makepkg -sric --dir /tmp/yay --noconfirm"
+    sudo -H -u h3x0r -c "git clone https://aur.archlinux.org/yay /tmp/yay" &&
+    sudo -H -u h3x0r -c "makepkg -sric --dir /tmp/yay --noconfirm" &&
 
     ## register gpg keys
-    sudo -H -u h3x0r bash -c "gpg --recv-keys 2BBBD30FAAB29B3253BCFBA6F6947DAB68E7B931"
+    sudo -H -u h3x0r bash -c "gpg --recv-keys 2BBBD30FAAB29B3253BCFBA6F6947DAB68E7B931" &&
     
 
     ## install aur package
-    sudo -H -u h3x0r -c "yay -S $PACK --noconfirm"
+    sudo -H -u h3x0r -c "yay -S $PACK --noconfirm" &&
 
 
     ## close user permision
