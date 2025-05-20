@@ -1,1 +1,2 @@
-# -init-logs
+# virtu
+blackbird virtualization host instalation protocol
