@@ -106,9 +106,9 @@ function storage_admiral_formats_lvm2_partition_data() {
 
     yes | mkfs.ext4 -b 4096 /dev/data/home
     
-    yes | mkfs.ext4 -b 4096 /dev/proc/vlog 
+    yes | mkfs.ext4 -b 4096 /dev/data/vlog 
 
-    yes | mkfs.ext4 -b 4096 /dev/proc/vaud 
+    yes | mkfs.ext4 -b 4096 /dev/data/vaud 
 
     yes | mkfs.ext4 -b 4096 /dev/data/note
     
