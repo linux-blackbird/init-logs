@@ -160,7 +160,7 @@ function config_package_main_blackbird_secured() {
 
     ## clevis kernel parameter
     systemctl enable clevis-luks-askpass.path
-    echo "ip=10.10.1.22::10.10.1.1:255.255.255.0::eth0:none nameserver=10.10.1.1" > /etc/cmdline.d/06-nets.conf
+    echo "ip=$IPADDRRES::10.10.1.1:255.255.255.0::eth0:none nameserver=10.10.1.1" > /etc/cmdline.d/06-nets.conf
 }
 
 
