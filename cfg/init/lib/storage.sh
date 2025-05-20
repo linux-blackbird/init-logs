@@ -125,16 +125,12 @@ function storage_admiral_formats_lvm2_partition_root() {
     if [[ $1 == "install" ]];then
         yes | mkfs.vfat -F32 -S 4096 -n BOOT /dev/$DISK_BOOT 
     fi
-
     
     yes | mkfs.ext4 -b 4096 /dev/proc/root 
-
     
     yes | mkfs.ext4 -b 4096 /dev/proc/vars
-
     
     yes | mkfs.ext4 -b 4096 /dev/proc/vtmp
-
 
     swapoff /dev/proc/swap 
 
@@ -156,9 +152,7 @@ function storage_admiral_formats_lvm2_partition_data() {
         yes | mkfs.ext4 -b 4096 /dev/data/note
         
         yes | mkfs.ext4 -b 4096 /dev/data/docs
-
     fi
-   
 }
 
 
@@ -193,26 +187,37 @@ function storage_admiral_mouting_lvm2_partition_root() {
 function storage_admiral_mouting_lvm2_partition_data() {
 
     ## mounting /home
-    mkdir /mnt/home 
+
+    if [[ ! -d /mnt/home  ]];then
+        mkdir /mnt/home 
+    fi
     mount -o rw,nosuid,nodev,noexec,relatime /dev/data/home /mnt/home 
 
 
     ## var/log partition
-    mkdir /mnt/var/log
+    if [[ ! -d /mnt/var/log  ]];then
+        mkdir /mnt/var/log
+    fi
     mount -o rw,nosuid,nodev,noexec,relatime /dev/data/vlog /mnt/var/log 
 
     ## var/log/audit partition
-    mkdir /mnt/var/log/audit 
+    if [[ ! -d /mnt/var/log/audit  ]];then
+        mkdir /mnt/var/log/audit 
+    fi
     mount -o rw,nosuid,nodev,noexec,relatime /dev/data/vaud /mnt/var/log/audit
 
 
     ## srv/http/public partition
-    mkdir /mnt/srv/ /mnt/srv/http/ /mnt/srv/http/public/
+    if [[ ! -d /mnt/srv/http/public/  ]];then
+        mkdir /mnt/srv/ /mnt/srv/http/ /mnt/srv/http/public/
+    fi
     mount -o rw,nosuid,nodev,relatime /dev/data/docs /mnt/srv/http/public
 
 
     ## srv/http/public partition
-    mkdir /mnt/srv/http/intern/
+    if [[ ! -d /mnt/srv/http/intern/  ]];then
+        mkdir /mnt/srv/http/intern/
+    fi
     mount -o rw,nosuid,nodev,relatime /dev/data/note /mnt/srv/http/intern
 }
 

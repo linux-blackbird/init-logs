@@ -1,8 +1,7 @@
---------------------------------------------------
-\S{PRETTY_NAME} 
---------------------------------------------------
-kernel    : \r (\l)
-purposes  : Library Automation Host
-variant   : Virtual Host
-copyright : PT lektor media utama
---------------------------------------------------
+-------------------------------------------------------------------
+ \S{PRETTY_NAME} 
+-------------------------------------------------------------------
+ kernel    : \r (\l)
+ variant   : Central Log and Monitoring Host
+ copyright : PT lektor media utama
+-------------------------------------------------------------------

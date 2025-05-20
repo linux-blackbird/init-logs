@@ -2,38 +2,15 @@
 
 
 source /init/env
+source /init/lib/setconfs.sh
+source /init/lib/sepolicy.sh
 
-echo blackroz > /etc/hostname
-
-ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime 
-
-hwclock --systohc 
-
-timedatectl set-ntp true 
-
-printf "en_US.UTF-8 UTF-8\nen_US ISO-8859-1" >> /etc/locale.gen 
-
-locale-gen && locale > /etc/locale.conf 
-
-sed -i '1s/.*/'LANG=en_US.UTF-8'/' /etc/locale.conf 
-
-echo 'EDITOR="/usr/bin/nvim"' >> /etc/environment 
+install_configuration_admiral_basic
 
 
 
 ### ADMINISTRATOR
-
-useradd -m sysadmin 
-
-chown -R sysadmin:sysadmin /home/sysadmin 
-
-echo 'sysadmin ALL=(ALL:ALL) ALL' > /etc/sudoers.d/00_sysadmin 
-
-passwd sysadmin 
-
-usermod -a -G wheel sysadmin 
-
-usermod -a -G libvirt sysadmin 
+register_user_master_admiral_basic
 
 
 
@@ -88,84 +65,8 @@ systemctl enable tuned-ppd
 systemctl enable irqbalance.service
 
 
-chown root:root /etc/crontab && chmod og-rwx /etc/crontab &
-pid=$!
-wait $pid
+blackbird_cis_level_2_policy_install
 
-chown root:root /etc/cron.hourly/ && chmod og-rwx /etc/cron.hourly/ &
-pid=$!
-wait $pid
-
-chown root:root /etc/cron.daily/ && chmod og-rwx /etc/cron.daily/ &
-pid=$!
-wait $pid
-
-chown root:root /etc/cron.weekly/ && chmod og-rwx /etc/cron.weekly/ &
-pid=$!
-wait $pid
-
-chown root:root /etc/cron.monthly/ && chmod og-rwx /etc/cron.monthly/ &
-pid=$!
-wait $pid
-
-chown root:root /etc/cron.d/ && chmod og-rwx /etc/cron.d &
-pid=$!
-wait $pid
-
-modprobe -r hfs 2> /dev/null && rmmod hfs 2> /dev/null &
-pid=$!
-wait $pid 
-
-modprobe -r hfsplus 2> /dev/null && rmmod hfsplus 2> /dev/null &
-pid=$!
-wait $pid
-
-modprobe -r jffs2 2> /dev/null && rmmod jffs2 2> /dev/null &
-pid=$!
-wait $pid
-
-modprobe -r squashfs 2> /dev/null && rmmod squashfs 2> /dev/null &
-pid=$!
-wait $pid
-
-modprobe -r udf 2> /dev/null && rmmod udf 2> /dev/null &
-pid=$!
-wait $pid
-
-## disable usb-storage file system module from kernel
-## modprobe -r usb-storage 2>/dev/null; rmmod usb-storage 2>/dev/null
-
-modprobe -r 9p 2> /dev/null && rmmod 9p 2> /dev/null &
-pid=$!
-wait $pid
-
-modprobe -r affs 2> /dev/null && rmmod affs 2> /dev/null &
-pid=$!
-wait $pid
-
-modprobe -r afs 2> /dev/null && rmmod afs 2> /dev/null &
-pid=$!
-wait $pid
-
-modprobe -r fuse 2> /dev/null && rmmod fuse 2> /dev/null &
-pid=$!
-wait $pid
-
-systemctl mask nfs-server.service &
-pid=$!
-wait $pid
-
-modprobe -r dccp 2> /dev/null && rmmod dccp 2>/dev/null &
-pid=$!
-wait $pid
-
-modprobe -r rds 2> /dev/null && rmmod rds 2> /dev/null &
-pid=$!
-wait $pid
-
-modprobe -r sctp 2> /dev/null && rmmod sctp 2> /dev/null &
-pid=$!
-wait $pid
 
 mkinitcpio -P
 

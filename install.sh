@@ -33,8 +33,10 @@ fi
 
 
 
-## INSTALL PACKAGE
-
+## INSTALL PACKAGE PACKAGE
 install_package_main_admiral_basics
+prepare_configuration_admiral_basic
 
 
+## CHROOT INSTALL PACKAGE
+arch-chroot /mnt /bin/bash /init/main
