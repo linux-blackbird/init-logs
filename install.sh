@@ -12,20 +12,17 @@ source "$APPS/cfg/init/lib/storage.sh"
 source "$APPS/cfg/init/lib/package.sh"
 source "$APPS/cfg/init/lib/setconf.sh"
 
-echo $DISK_ROOT
-
-exit
 
 ## STORAGE PREPARE
-if [[ $1 == "install" ]];then
+if [[ $MODE == "install" ]];then
 
     setup_storage_admiral_protocol_fresh
 
-elif [[ $1 == "swipe" ]];then
+elif [[ $MODE == "swipe" ]];then
 
     setup_storage_admiral_protocol_swipe
 
-elif [[ $1 == "reset" ]];then
+elif [[ $MODE == "reset" ]];then
 
     setup_storage_admiral_protocol_reset
 
