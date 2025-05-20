@@ -1,6 +1,6 @@
 #!/bin/bash
 DURS=$(pwd)
-source $DURS/init-logs/env
+source "$DURS/init-logs/env"
 
 if [[ -d /mnt/boot ]];then
     umount -R /mnt
@@ -10,8 +10,6 @@ fi
 ### TECHNICAL
 
 if [[ $1 == "install" ]];then
-
-    ### ADMINISTRATOR
 
     cryptsetup luksFormat /dev/sda2
 
@@ -25,57 +23,44 @@ if [[ $1 == "install" ]];then
     cryptsetup luksOpen /dev/sda3 lvm_data 
 
 
-    pvcreate /dev/mapper/lvm_root &
-    pid=$!
-    wait $pid
+    pvcreate /dev/mapper/lvm_root 
 
-    vgcreate proc /dev/mapper/lvm_root &
-    pid=$!
-    wait $pid
 
-    yes | lvcreate -L 20G proc -n root &
-    pid=$!
-    wait $pid
+    vgcreate proc /dev/mapper/lvm_root 
 
-    yes | lvcreate -L 5G proc -n vars &
-    pid=$!
-    wait $pid
 
-    yes | lvcreate -L 1G proc -n vtmp &
-    pid=$!
-    wait $pid
+    yes | lvcreate -L 20G proc -n root 
 
-    yes | lvcreate -l100%FREE proc -n swap &
-    pid=$!
-    wait $pid
 
-    pvcreate /dev/mapper/lvm_data &
-    pid=$!
-    wait $pid
+    yes | lvcreate -L 5G proc -n vars
 
-    vgcreate data /dev/mapper/lvm_data &
-    pid=$!
-    wait $pid
 
-    yes | lvcreate -L 10G data -n home &
-    pid=$!
-    wait $pid
+    yes | lvcreate -L 1G proc -n vtmp
 
-    yes | lvcreate -L 50G data -n vlog &
-    pid=$!
-    wait $pid
 
-    yes | lvcreate -L 20G data -n vaud &
-    pid=$!
-    wait $pid
+    yes | lvcreate -l100%FREE proc -n swap
 
-    yes | lvcreate -L 10G data -n docs &
-    pid=$!
-    wait $pid
 
-    yes | lvcreate -L 10G data -n note &
-    pid=$!
-    wait $pid
+    pvcreate /dev/mapper/lvm_data
+
+
+    vgcreate data /dev/mapper/lvm_data
+
+
+    yes | lvcreate -L 10G data -n home
+
+
+    yes | lvcreate -L 50G data -n vlog
+
+
+    yes | lvcreate -L 20G data -n vaud
+
+
+    yes | lvcreate -L 10G data -n docs
+
+
+    yes | lvcreate -L 10G data -n note
+
 fi
 
 
