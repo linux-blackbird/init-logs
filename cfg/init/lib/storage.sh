@@ -7,6 +7,7 @@ STORAGEUNIQ=$PATH/admiral/cfg/tmp/init/$STORAGERAND
 ## LUKS
 function storage_admiral_formats_luks_partition_keys() {
 
+    echo 'No directory keys needed'
     #echo "$STORAGERAND" | cryptsetup luksFormat --batch-mode --type luks2 --key-file $STORAGEUNIQ $DISK_KEYS &
     #background_pid=$!
     #wait $background_pid
