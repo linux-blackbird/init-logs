@@ -23,7 +23,7 @@ config_package_main_blackbird_kernels
 config_package_main_blackbird_network
 config_package_main_blackbird_secured
 
-
+### policy
 blackbird_cis_level_2_policy_install
 
 mkinitcpio -P

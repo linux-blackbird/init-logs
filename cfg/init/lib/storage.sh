@@ -123,7 +123,7 @@ function storage_admiral_formats_lvm2_partition_root() {
 
     
     if [[ $1 == "install" ]];then
-        yes | mkfs.vfat -F32 -S 4096 -n BOOT /dev/$DISK_BOOT 
+        yes | mkfs.vfat -F32 -S 4096 -n BOOT $DISK_BOOT 
     fi
     
     yes | mkfs.ext4 -b 4096 /dev/proc/root 
