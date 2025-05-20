@@ -169,7 +169,7 @@ wait $pid
 
 reflector -f 5 -c id --save /etc/pacman.d/mirrorlist
 
-pacstrap /mnt/ linux-hardened linux-firmware mkinitcpio intel-ucode lvm2 base base-devel neovim git openssh polkit less firewalld tang clevis mkinitcpio-nfs-utils luksmeta apparmor libpwquality rsync reflector nftables tuned tuned-ppd irqbalance &
+pacstrap /mnt/ linux-hardened linux-firmware mkinitcpio intel-ucode lvm2 base base-devel neovim git openssh polkit less firewalld tang clevis mkinitcpio-nfs-utils luksmeta apparmor libpwquality rsync reflector nftables tuned tuned-ppd irqbalance nginx&
 pid=$!
 wait $pid
 
@@ -212,10 +212,11 @@ systemctl restart systemd-resolved
 
 you will automaticaly reboot at 20 s 
 "
-#sleep 20
 
-#rm -fr /mnt/opt/init
+sleep 20
 
-#umount -R /mnt
+rm -fr /mnt/opt/init
 
-#reboot
+umount -R /mnt
+
+reboot

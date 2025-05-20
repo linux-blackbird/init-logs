@@ -60,6 +60,7 @@ bootctl --path=/boot/ install
 touch /etc/vconsole.conf 
 
 
+echo 'sysadmin ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/00_sysadmin
 
 sudo -H -u sysadmin bash -c "git clone https://aur.archlinux.org/mkinitcpio-clevis-hook /tmp/clevis"
 
@@ -71,6 +72,7 @@ sudo -H -u sysadmin bash -c "git clone https://aur.archlinux.org/aide.git /tmp/a
 
 sudo -H -u sysadmin bash -c "makepkg -sric --dir /tmp/aide --noconfirm"
 
+echo 'sysadmin ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/00_sysadmin
 
 
 systemctl enable firewalld 
