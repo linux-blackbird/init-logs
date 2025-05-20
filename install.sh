@@ -1,7 +1,7 @@
 #!/bin/bash
-PATH=$(pwd)/init-logs
-source "$PATH/env"
-source "$PATH/cfg/init/lib/storage.sh"
+APPS=$(pwd)/init-logs
+source "$APPS/env"
+source "$APPS/cfg/init/lib/storage.sh"
 
 
 if [[ $1 == "install" ]];then
