@@ -135,6 +135,7 @@ function storage_admiral_formats_lvm2_partition_root() {
     
     yes | mkfs.ext4 -b 4096 /dev/proc/vtmp
 
+
     swapoff /dev/proc/swap 
 
     yes | mkswap /dev/proc/swap 

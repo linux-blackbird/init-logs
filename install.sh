@@ -2,6 +2,7 @@
 APPS=$(pwd)/init-logs
 source "$APPS/env"
 source "$APPS/cfg/init/lib/storage.sh"
+source "$APPS/cfg/init/lib/package.sh"
 
 
 ## PREPARE
@@ -30,5 +31,10 @@ else
     echo "error : undefined parameter, used "install", "swipe", or "reset" for parameter ";
 fi
 
+
+
+## INSTALL PACKAGE
+
+install_package_main_admiral_basics
 
 
