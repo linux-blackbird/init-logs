@@ -246,11 +246,14 @@ function setup_storage_admiral_protocol_fresh() {
     storage_admiral_opening_luks_partition_root
     storage_admiral_created_lvm2_partition_root
     storage_admiral_formats_lvm2_partition_root
+    storage_admiral_mouting_lvm2_partition_root
+
 
     ## prepare lvm2 data
     storage_admiral_opening_luks_partition_data
     storage_admiral_created_lvm2_partition_data
     storage_admiral_formats_lvm2_partition_data
+    storage_admiral_mouting_lvm2_partition_data
 }
 
 
