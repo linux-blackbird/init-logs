@@ -165,7 +165,7 @@ function storage_admiral_mouting_lvm2_partition_root() {
     ## mounting /boot
     mkdir /mnt/boot 
     mount -o uid=0,gid=0,fmask=0077,dmask=0077 $DISK_BOOT /mnt/boot 
-    rm -fr /mnt/boot > /dev/null
+    rm -fr /mnt/boot/* > /dev/null
 
 
     ## var partition
