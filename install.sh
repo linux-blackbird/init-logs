@@ -214,8 +214,6 @@ you will automaticaly reboot at 20 s
 
 sleep 20
 
-rm -fr /mnt/opt/init
-
 umount -R /mnt
 
 reboot
