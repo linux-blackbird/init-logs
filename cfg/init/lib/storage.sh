@@ -7,15 +7,15 @@ STORAGEUNIQ=$PATH/admiral/cfg/tmp/init/$STORAGERAND
 ## LUKS
 function storage_admiral_formats_luks_partition_keys() {
 
-    echo "$STORAGERAND" | cryptsetup luksFormat --batch-mode --type luks2 --key-file $STORAGEUNIQ /dev/nvme0n1p2 &
-    background_pid=$!
-    wait $background_pid
+    #echo "$STORAGERAND" | cryptsetup luksFormat --batch-mode --type luks2 --key-file $STORAGEUNIQ $DISK_KEYS &
+    #background_pid=$!
+    #wait $background_pid
 }
 
 
 function storage_admiral_formats_luks_partition_root() {  
 
-    echo "$STORAGERAND" | cryptsetup luksFormat --batch-mode --type luks2 --key-file $STORAGEUNIQ --sector-size 4096 /dev/nvme0n1p3 &
+    echo "$STORAGERAND" | cryptsetup luksFormat --batch-mode --type luks2 --key-file $STORAGEUNIQ --sector-size 4096 $DISK_ROOT &
     background_pid=$!
     wait $background_pid
 }
@@ -23,7 +23,7 @@ function storage_admiral_formats_luks_partition_root() {
 
 function storage_admiral_formats_luks_partition_data() {
 
-    echo "$STORAGERAND" | cryptsetup luksFormat --batch-mode --type luks2 --key-file $STORAGEUNIQ --sector-size 4096 /dev/nvme0n1p4 &
+    echo "$STORAGERAND" | cryptsetup luksFormat --batch-mode --type luks2 --key-file $STORAGEUNIQ --sector-size 4096 $DISK_DATA &
     background_pid=$!
     wait $background_pid
 }
