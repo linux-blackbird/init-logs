@@ -16,7 +16,9 @@ function storage_admiral_formats_luks_partition_keys() {
 
 function storage_admiral_formats_luks_partition_root() {  
 
-    echo "$STORAGERAND" | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --key-file $STORAGEUNIQ --sector-size 4096 $DISK_ROOT 
+    echo "$STORAGERAND" | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --key-file $STORAGEUNIQ --sector-size 4096 $DISK_ROOT &
+    background_pid=$!
+    wait $background_pid
 }
 
 
