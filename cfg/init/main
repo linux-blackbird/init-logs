@@ -86,7 +86,6 @@ systemctl enable tuned-ppd
 
 systemctl enable irqbalance.service 
 
-systemctl enable libvirtd.socket 
 
 chown root:root /etc/crontab && chmod og-rwx /etc/crontab &
 pid=$!
