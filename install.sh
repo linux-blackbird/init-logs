@@ -1,7 +1,7 @@
 #!/bin/bash
 DURS=$(pwd)
-source "$DURS/init-logs/env"
-source "$DURS/init-logs/cfg/init/lib/storage.sh"
+source "$DURS/env"
+source "$DURS/cfg/init/lib/storage.sh"
 
 
 if [[ $1 == "install" ]];then
