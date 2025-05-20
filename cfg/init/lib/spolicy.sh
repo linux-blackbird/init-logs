@@ -47,6 +47,4 @@ function blackbird_cis_level_2_policy_services() {
 
 function blackbird_cis_level_2_policy_install() {
     blackbird_cis_level_2_policy_crontab
-    blackbird_cis_level_2_policy_filesys
-    blackbird_cis_level_2_policy_install
 }
