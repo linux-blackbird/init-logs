@@ -73,7 +73,6 @@ sudo -H -u sysadmin bash -c "makepkg -sric --dir /tmp/aide --noconfirm"
 
 
 
-
 systemctl enable firewalld 
 
 systemctl enable sshd 
