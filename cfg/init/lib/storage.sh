@@ -68,19 +68,15 @@ function storage_admiral_created_lvm2_partition_data() {
 
     pvcreate /dev/mapper/lvm_data 
 
-
     vgcreate data /dev/mapper/lvm_data
 
     yes | lvcreate -L 20G data -n home 
 
-
-     yes | lvcreate -L 50G data -n vlog
-
+    yes | lvcreate -L 50G data -n vlog
 
     yes | lvcreate -L 20G data -n vaud 
 
     yes | lvcreate -L 20G data -n docs 
-
 
     yes | lvcreate -L 20G data -n note 
 }
@@ -100,13 +96,6 @@ function storage_admiral_formats_lvm2_partition_root() {
     
     yes | mkfs.ext4 -b 4096 /dev/proc/vtmp
 
-    
-    yes | mkfs.ext4 -b 4096 /dev/proc/docs 
-
-
-    yes | mkfs.ext4 -b 4096 /dev/proc/note 
-
-
     swapoff /dev/proc/swap 
 
     yes | mkswap /dev/proc/swap 
@@ -117,11 +106,13 @@ function storage_admiral_formats_lvm2_partition_data() {
 
     yes | mkfs.ext4 -b 4096 /dev/data/home
     
+    yes | mkfs.ext4 -b 4096 /dev/proc/vlog 
 
-    mkfs.xfs -fs size=4096 /dev/data/pods
+    yes | mkfs.ext4 -b 4096 /dev/proc/vaud 
+
+    yes | mkfs.ext4 -b 4096 /dev/data/note
     
-
-    mkfs.xfs -fs size=4096 /dev/data/host
+    yes | mkfs.ext4 -b 4096 /dev/data/docs
    
 }
 
@@ -207,10 +198,12 @@ function setup_storage_admiral_protocol_fresh() {
     storage_admiral_formats_luks_partition_data
 
     ## prepare lvm2 root
+    storage_admiral_opening_luks_partition_root
     storage_admiral_created_lvm2_partition_root
     storage_admiral_formats_lvm2_partition_root
 
     ## prepare lvm2 data
+    storage_admiral_opening_luks_partition_data
     storage_admiral_created_lvm2_partition_data
     storage_admiral_formats_lvm2_partition_data
 }
