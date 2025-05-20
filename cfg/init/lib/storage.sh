@@ -16,8 +16,8 @@ function storage_admiral_formats_luks_partition_keys() {
 
 function storage_admiral_formats_luks_partition_root() {  
 
-    if [[ ! -f  /dev/mapper/lvm_root ]];then
-    
+    if [[ ! -e  /dev/mapper/lvm_root ]];then
+
         echo "$STORAGERAND" | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --key-file $STORAGEUNIQ --sector-size 4096 $DISK_ROOT &
         background_pid=$!
         wait $background_pid
@@ -28,7 +28,7 @@ function storage_admiral_formats_luks_partition_root() {
 
 function storage_admiral_formats_luks_partition_data() {
 
-    if [[ ! -f  /dev/mapper/lvm_data ]];then
+    if [[ ! -e  /dev/mapper/lvm_data ]];then
 
         echo "$STORAGERAND" | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --key-file $STORAGEUNIQ --sector-size 4096 $DISK_DATA 
     fi
@@ -37,7 +37,7 @@ function storage_admiral_formats_luks_partition_data() {
 
 function storage_admiral_opening_luks_partition_root() {
 
-    if [[ ! -f  /dev/mapper/lvm_root ]];then
+    if [[ ! -e  /dev/mapper/lvm_root ]];then
     
         /usr/bin/cryptsetup luksOpen $DISK_ROOT lvm_root --key-file $STORAGEUNIQ 
     fi
@@ -46,7 +46,7 @@ function storage_admiral_opening_luks_partition_root() {
 
 function storage_admiral_opening_luks_partition_data() {
     
-    if [[ ! -f  /dev/mapper/lvm_data ]];then
+    if [[ ! -e  /dev/mapper/lvm_data ]];then
 
         /usr/bin/cryptsetup luksOpen $DISK_DATA lvm_data --key-file $STORAGEUNIQ
     fi
@@ -56,28 +56,28 @@ function storage_admiral_opening_luks_partition_data() {
 ## LVM2
 function storage_admiral_created_lvm2_partition_root() {
 
-    if [[ ! -f  /dev/mapper/lvm_root ]];then
+    if [[ ! -e  /dev/mapper/lvm_root ]];then
     
         /usr/bin/pvcreate /dev/mapper/lvm_root 
         /usr/bin/vgcreate proc /dev/mapper/lvm_root 
     fi
 
-    if [[ ! -f /dev/proc/root ]];then
+    if [[ ! -e /dev/proc/root ]];then
 
         yes | /usr/bin/lvcreate -L 20G proc -n root 
     fi
 
-    if [[ ! -f /dev/proc/vars ]];then
+    if [[ ! -e /dev/proc/vars ]];then
 
         yes | /usr/bin/lvcreate -L 5G proc -n vars 
     fi
 
-    if [[ ! -f /dev/proc/vtmp ]];then
+    if [[ ! -e /dev/proc/vtmp ]];then
 
         yes | /usr/bin/lvcreate -L 1G proc -n vtmp 
     fi
 
-    if [[ ! -f /dev/proc/swap ]];then
+    if [[ ! -e /dev/proc/swap ]];then
 
         yes | /usr/bin/lvcreate -l100%FREE proc -n swap
     fi
@@ -86,33 +86,33 @@ function storage_admiral_created_lvm2_partition_root() {
 
 function storage_admiral_created_lvm2_partition_data() {
     
-    if [[ ! -f  /dev/mapper/lvm_root ]];then
+    if [[ ! -e  /dev/mapper/lvm_root ]];then
 
         pvcreate /dev/mapper/lvm_data 
         vgcreate data /dev/mapper/lvm_data
     fi
 
-    if [[ ! -f /dev/data/home ]];then
+    if [[ ! -e /dev/data/home ]];then
 
         yes | lvcreate -L 20G data -n home 
     fi
 
-    if [[ ! -f /dev/data/vlog ]];then
+    if [[ ! -e /dev/data/vlog ]];then
 
         yes | lvcreate -L 50G data -n vlog
     fi
 
-    if [[ ! -f /dev/data/vaud ]];then
+    if [[ ! -e /dev/data/vaud ]];then
 
         yes | lvcreate -L 20G data -n vaud
     fi
 
-    if [[ ! -f /dev/data/docs ]];then
+    if [[ ! -e /dev/data/docs ]];then
 
         yes | lvcreate -L 20G data -n docs
     fi
 
-    if [[ ! -f /dev/data/note ]];then
+    if [[ ! -e /dev/data/note ]];then
 
         yes | lvcreate -L 20G data -n note 
     fi
