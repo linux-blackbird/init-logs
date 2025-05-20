@@ -143,7 +143,7 @@ function storage_admiral_formats_lvm2_partition_root() {
 function storage_admiral_formats_lvm2_partition_data() {
 
 
-    if [[ $1 == "install" ]];then
+    if [[ $MODE == "install" ]];then
 
         yes | mkfs.ext4 -b 4096 /dev/data/home
         
