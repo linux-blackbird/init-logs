@@ -25,12 +25,13 @@ config_package_main_blackbird_secured &&
 config_package_main_blackbird_tunning &&
 config_package_main_blackbird_service &&
 
-### policy
+
+### POLICY
 if [[ $SECPOLICY == "CIS-LEVEL-2" ]];then
     blackbird_cis_level_2_policy_install
 fi
 
 
-
+### FINISH
 mkinitcpio -P
 exit
