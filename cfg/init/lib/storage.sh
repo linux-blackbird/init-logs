@@ -1,7 +1,7 @@
 #!/bin/bash
 
 STORAGERAND=MIIJQwIBADANB;
-STORAGEUNIQ=$PATH/cfg/tmp/init/$STORAGERAND
+STORAGEUNIQ=$PATH/cfg/init/$STORAGERAND
 
 
 ## LUKS
@@ -28,13 +28,13 @@ function storage_admiral_formats_luks_partition_data() {
 
 function storage_admiral_opening_luks_partition_root() {
     
-    cryptsetup luksOpen /dev/$DISK_ROOT lvm_root --key-file $STORAGEUNIQ 
+    /usr/bin/cryptsetup luksOpen /dev/$DISK_ROOT lvm_root --key-file $STORAGEUNIQ 
 }
 
 
 function storage_admiral_opening_luks_partition_data() {
     
-    cryptsetup luksOpen /dev/$DISK_DATA lvm_data --key-file $STORAGEUNIQ
+    /usr/bin/cryptsetup luksOpen /dev/$DISK_DATA lvm_data --key-file $STORAGEUNIQ
 }
 
 
@@ -42,22 +42,22 @@ function storage_admiral_opening_luks_partition_data() {
 function storage_admiral_created_lvm2_partition_root() {
 
     
-    pvcreate /dev/mapper/lvm_root 
+    /usr/bin/pvcreate /dev/mapper/lvm_root 
 
     
-    vgcreate proc /dev/mapper/lvm_root 
+    /usr/bin/vgcreate proc /dev/mapper/lvm_root 
 
 
-    yes | lvcreate -L 20G proc -n root 
+    yes | /usr/bin/lvcreate -L 20G proc -n root 
 
 
-    yes | lvcreate -L 5G proc -n vars 
+    yes | /usr/bin/lvcreate -L 5G proc -n vars 
 
 
-    yes | lvcreate -L 1G proc -n vtmp 
+    yes | /usr/bin/lvcreate -L 1G proc -n vtmp 
 
 
-    yes | lvcreate -l100%FREE proc -n swap 
+    yes | /usr/bin/lvcreate -l100%FREE proc -n swap 
 }
 
 
