@@ -105,120 +105,120 @@ function install_package_aurs_admiral_suppor() {
 ### CONFIGURATION
 
 function config_package_main_admiral_kernels() {
-
+    echo 'on going'
 }
 
 
 function config_package_main_admiral_desktop() {
-    
+    echo 'on going'
 }
 
 
 function config_package_main_admiral_network() {
-
+    echo 'on going'
 }
 
 
 function config_package_main_admiral_desktop() {
-    
+    echo 'on going'
 }
 
 
 function config_package_main_admiral_storage() {
-
+    echo 'on going'
 }
 
 
 function config_package_main_admiral_tunning() {
-
+    echo 'on going'
 }
 
 
 function config_package_main_admiral_utilities() {
-
+    echo 'on going'
 }
 
 
 function config_package_main_admiral_develop() {
-
+    echo 'on going'
 }
 
 
 function config_package_main_admiral_virtual() {
-
+    echo 'on going'
 }
 
 
 function config_package_main_admiral_players() {
-
+    echo 'on going'
 }
 
 
 function config_package_main_admiral_containers() {
-
+    echo 'on going'
 }
 
 
 function config_package_main_admiral_audisys() {
-
+    echo 'on going'
 }
 
 
 function config_package_main_admiral_fileman() {
-
+    echo 'on going'
 }
 
 
 function config_package_main_admiral_offices() {
-
+    echo 'on going'
 }
 
 
 function config_package_main_admiral_browser() {
-
+    echo 'on going'
 }
 
 
 function config_package_main_admiral_apstore() {
-
+    echo 'on going'
 }
 
 
 function config_package_main_admiral_profile() {
-
+    echo 'on going'
 }
 
 
 function config_package_main_admiral_profile_medias() {
-
+    echo 'on going'
 }
 
 
 function config_package_main_admiral_profile_devels() {
-
+    echo 'on going'
 }
 
 
 function config_package_main_admiral_profile_suppor() {
-
+    echo 'on going'
 }
 
 
 function config_package_main_admiral_aurs() {
-
+    echo 'on going'
 }
 
 
 function config_package_main_admiral_aurs_medias() {
-
+    echo 'on going'
 }
 
 
 function config_package_main_admiral_aurs_devels() {
-
+    echo 'on going'
 }
 
 
 function config_package_main_admiral_aurs_suppor() {
-
+    echo 'on going'
 }
