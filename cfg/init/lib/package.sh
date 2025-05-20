@@ -72,9 +72,7 @@ function install_package_main_blackbird_variant() {
 
 function install_package_aurs_blackbird_basics() {
 
-    PACKS=$AURS_KERNELS_PACKAGE $AURS_SECURED_PAKCAGE $AURS_NETWORK_PACKAGE $AURS_STORAGE_PACKAGE $AURS_TUNNING_PACKAGE \
-          $AURS_UTILITY_PACKAGE $AURS_DEVELOP_PACKAGE $AURS_SERVICE_PACKAGE $AURS_PLAYERS_PACKAGE $AURS_DESKTOP_PACKAGE \
-          $AURS_AUDISYS_PACKAGE $AURS_FILEMAN_PACKAGE $AURS_OFFICES_PACKAGE $AURS_BROWSER_PACKAGE $AURS_APSTORE_PACKAGE 
+    PACKS=
 
 
     ## open user permision
@@ -90,7 +88,10 @@ function install_package_aurs_blackbird_basics() {
     
 
     ## install aur package
-    sudo -H -u h3x0r -c "yay -S $PACK --noconfirm" &&
+    sudo -H -u h3x0r -c "yay -S $AURS_KERNELS_PACKAGE $AURS_SECURED_PAKCAGE $AURS_NETWORK_PACKAGE $AURS_STORAGE_PACKAGE $AURS_TUNNING_PACKAGE \
+                                $AURS_UTILITY_PACKAGE $AURS_DEVELOP_PACKAGE $AURS_SERVICE_PACKAGE $AURS_PLAYERS_PACKAGE $AURS_DESKTOP_PACKAGE \
+                                $AURS_AUDISYS_PACKAGE $AURS_FILEMAN_PACKAGE $AURS_OFFICES_PACKAGE $AURS_BROWSER_PACKAGE $AURS_APSTORE_PACKAGE \
+                         --noconfirm" &&
 
 
     ## close user permision
