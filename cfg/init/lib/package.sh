@@ -176,7 +176,7 @@ function config_package_main_blackbird_storage() {
 
 function config_package_main_blackbird_tunning() {
     cp /etc/pacman.d/mirrorlist /etc/pacman.d/backupmirror 
-    systemctl enable tuned-ppd
+    systemctl enable tuned
     systemctl enable irqbalance.service
 }
 

@@ -7,7 +7,7 @@ function prepare_configuration_blackbird_basic() {
 
     cp /etc/systemd/network/* /mnt/etc/systemd/network/
     cp -fr /init-logs/cfg/* /mnt/
-    cp -f  $APPS/env /mnt/init
+    cp -f  $APPS/env /mnt/init/env/data
 }
 
 
