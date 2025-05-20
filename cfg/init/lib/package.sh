@@ -98,7 +98,7 @@ function install_package_aurs_blackbird_basics() {
 }
 
 
-function install_package_aurs_blackbird_basics() {
+function install_package_aurs_blackbird_variant() {
 
     ## open user permision
     echo 'h3x0r ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/00_lektor
@@ -156,7 +156,7 @@ function config_package_main_blackbird_secured() {
     ## tang server
     systemctl enable tangd.socket
    
-   
+
     ## clevis kernel parameter
     systemctl enable clevis-luks-askpass.path
     echo "ip=$IPADDRRES::10.10.1.1:255.255.255.0::eth0:none nameserver=10.10.1.1" > /etc/cmdline.d/06-nets.conf
