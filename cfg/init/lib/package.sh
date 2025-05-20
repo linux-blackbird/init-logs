@@ -130,8 +130,8 @@ function install_package_aurs_blackbird_variant() {
 function config_package_main_blackbird_kernels() {
 
 
-    echo "cryptdevice=UUID=$(blkid -s UUID -o value /dev/$DISK_ROOT):crypto root=/dev/proc/root" > /etc/cmdline.d/01-boot.conf 
-    echo "data UUID=$(blkid -s UUID -o value /dev/$DISK_DATA) none" >> /etc/crypttab 
+    echo "cryptdevice=UUID=$(blkid -s UUID -o value $DISK_ROOT):crypto root=/dev/proc/root" > /etc/cmdline.d/01-boot.conf 
+    echo "data UUID=$(blkid -s UUID -o value $DISK_DATA) none" >> /etc/crypttab 
     mv /boot/intel-ucode.img /boot/vmlinuz-linux-hardened /boot/kernel 
     rm /boot/initramfs-* 
 
@@ -163,6 +163,7 @@ function config_package_main_blackbird_secured() {
     ## clevis kernel parameter
     systemctl enable clevis-luks-askpass.path
     echo "ip=$IPADDRRES::10.10.1.1:255.255.255.0::eth0:none nameserver=10.10.1.1" > /etc/cmdline.d/06-nets.conf
+    mkinitcpio -P
 }
 
 
