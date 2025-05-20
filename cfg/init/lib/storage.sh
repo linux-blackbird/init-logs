@@ -16,15 +16,20 @@ function storage_admiral_formats_luks_partition_keys() {
 
 function storage_admiral_formats_luks_partition_root() {  
 
-    echo "$STORAGERAND" | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --key-file $STORAGEUNIQ --sector-size 4096 $DISK_ROOT &
-    background_pid=$!
-    wait $background_pid
+    if [[ ! -f  /dev/mapper/lvm_root ]];then
+        echo "$STORAGERAND" | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --key-file $STORAGEUNIQ --sector-size 4096 $DISK_ROOT &
+        background_pid=$!
+        wait $background_pid
+
+    fi
 }
 
 
 function storage_admiral_formats_luks_partition_data() {
 
-    echo "$STORAGERAND" | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --key-file $STORAGEUNIQ --sector-size 4096 $DISK_DATA 
+    if [[ ! -f  /dev/mapper/lvm_data ]];then
+        echo "$STORAGERAND" | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --key-file $STORAGEUNIQ --sector-size 4096 $DISK_DATA 
+    fi
 }
 
 
@@ -40,7 +45,7 @@ function storage_admiral_opening_luks_partition_root() {
 function storage_admiral_opening_luks_partition_data() {
     
     if [[ ! -f  /dev/mapper/lvm_data ]];then
-    
+
         /usr/bin/cryptsetup luksOpen $DISK_DATA lvm_data --key-file $STORAGEUNIQ
     fi
 }
