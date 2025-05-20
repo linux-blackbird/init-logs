@@ -1,18 +1,18 @@
 #!/bin/bash
+
+## PREPARE
+umount -R /mnt > /dev/null
 APPS=$(pwd)/init-logs
+echo "MODE=$1" >> $APPS/env
+
+
+## DECLARE EVN
 source "$APPS/env"
 source "$APPS/cfg/init/lib/storage.sh"
 source "$APPS/cfg/init/lib/package.sh"
 
 
-## PREPARE
-umount -R /mnt > /dev/null
-echo "MODE=$1" >> $APPS/env
-
-
-
 ## STORAGE PREPARE
-
 if [[ $1 == "install" ]];then
 
     setup_storage_admiral_protocol_fresh
