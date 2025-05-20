@@ -1,3 +1,5 @@
+#!/bin/bash
+
 function prepare_configuration_blackbird_basic() {
 
     genfstab -U /mnt/ > /mnt/etc/fstab &

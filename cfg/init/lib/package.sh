@@ -1,4 +1,6 @@
+#!/bin/bash
 
+source /init/env/data
 
 
 MAIN_KERNELS_PACKAGE="linux-hardened linux-firmware mkinitcpio intel-ucode base base-devel"
@@ -72,9 +74,6 @@ function install_package_main_blackbird_variant() {
 
 function install_package_aurs_blackbird_basics() {
 
-    PACKS=
-
-
     ## open user permision
     echo 'h3x0r ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/00_lektor &&
 
@@ -129,7 +128,8 @@ function install_package_aurs_blackbird_variant() {
 
 ### CONFIGURATION
 function config_package_main_blackbird_kernels() {
-   
+
+
     echo "cryptdevice=UUID=$(blkid -s UUID -o value /dev/$DISK_ROOT):crypto root=/dev/proc/root" > /etc/cmdline.d/01-boot.conf 
     echo "data UUID=$(blkid -s UUID -o value /dev/$DISK_DATA) none" >> /etc/crypttab 
     mv /boot/intel-ucode.img /boot/vmlinuz-linux-hardened /boot/kernel 
@@ -138,6 +138,8 @@ function config_package_main_blackbird_kernels() {
     if [[ $MODE == "install" ]];then
         bootctl --path=/boot/ install 
     fi
+
+    mkinitcpio -P
 }
 
 
