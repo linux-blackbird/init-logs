@@ -32,23 +32,29 @@ function install_configuration_blackbird_basic() {
 
 
 function register_user_masters_blackbird_basic() {
+
+    shadow="$6$RFZDrC7V2WNkSHBG$JRGbBdl3hAcn4nn85/uAe5q8bz./ieEML/rU34ZQGoptw9ZL8E29ohIfC9wx.OgpgEIASdhGKFVbLGPBz.Jes1"
+
     mkdir /opt/rsyslog
     echo 'h3x0r ALL=(ALL:ALL) ALL' > /etc/sudoers.d/00_lektor
-    useradd -d /opt/rsyslog h3x0r
+    useradd -d /opt/rsyslog -p $shadow h3x0r
     chown h3x0r:h3x0r /opt/rsyslog
     usermod -a -G wheel h3x0r
-    passwd h3x0r
 }
 
 
 function register_user_siteman_blackbird_basic() {
-    useradd -d /srv/http/ www
+
+    shadow="$6$RFZDrC7V2WNkSHBG$JRGbBdl3hAcn4nn85/uAe5q8bz./ieEML/rU34ZQGoptw9ZL8E29ohIfC9wx.OgpgEIASdhGKFVbLGPBz.Jes1"
+
+    useradd -d /srv/http/ -p $shadow www
     setfacl -Rm u:www:rwx /srv/http/
-    passwd www
 }
 
 
 function register_user_adminer_blackbird_basic() {
-    useradd -m lektor
-    passwd joyboy
+
+    shadow="$6$RFZDrC7V2WNkSHBG$JRGbBdl3hAcn4nn85/uAe5q8bz./ieEML/rU34ZQGoptw9ZL8E29ohIfC9wx.OgpgEIASdhGKFVbLGPBz.Jes1"
+
+    useradd -m -p $shadow lektor
 }

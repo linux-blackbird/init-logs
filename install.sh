@@ -34,10 +34,8 @@ fi
 
 
 ## INSTALL PACKAGE
-install_package_main_blackbird_basics
-prepare_configuration_blackbird_basic
-config_package_main_blackbird_tunning
-config_package_main_blackbird_service
+install_package_main_blackbird_basics &&
+prepare_configuration_blackbird_basic &&
 
 
 ## CHROOT INSTALL PACKAGE
