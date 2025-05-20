@@ -5,7 +5,6 @@ umount -R /mnt > /dev/null
 APPS=$(pwd)/init-logs
 printf "\nMODE=$1" >> $APPS/env
 
-cat $APPS/env;
 
 ## DECLARE EVN
 source "$APPS/env"
