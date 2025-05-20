@@ -2,7 +2,14 @@
 
 function prepare_configuration_blackbird_basic() {
 
+    genfstab -U /mnt/ > /mnt/etc/fstab
+ 
+    echo 'tmpfs     /tmp        tmpfs   defaults,rw,nosuid,nodev,noexec,relatime,size=1G    0 0' >> /mnt/etc/fstab
+    echo 'tmpfs     /dev/shm    tmpfs   defaults,rw,nosuid,nodev,noexec,relatime,size=1G    0 0' >> /mnt/etc/fstab
 
+    cp /etc/systemd/network/* /mnt/etc/systemd/network/
+    cp -fr /init-logs/cfg/* /mnt/
+    cp -f  /init-logs/env /mnt/init/env/data
 }
 
 
