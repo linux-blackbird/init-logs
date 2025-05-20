@@ -1,6 +1,6 @@
 #!/bin/bash
 DURS=$(pwd)
-source $DURS/virtu/env
+source $DURS/init-logs/env
 
 
 
@@ -18,7 +18,7 @@ if [[ $1 == "install" ]];then
     cryptsetup luksFormat /dev/sda3
 
 
-    cryptsetup luksOpen /dev/sad2 lvm_root
+    cryptsetup luksOpen /dev/sda2 lvm_root
 
 
     cryptsetup luksOpen /dev/sda3 lvm_data 
