@@ -5,7 +5,9 @@ umount -R /mnt > /dev/null
 APPS=$(pwd)/init-logs
 echo "MODE=$1" >> $APPS/env
 
+cat $APPS/env;
 
+exit
 ## DECLARE EVN
 source "$APPS/env"
 source "$APPS/cfg/init/lib/storage.sh"
