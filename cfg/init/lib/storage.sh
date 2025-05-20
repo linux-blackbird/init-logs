@@ -56,7 +56,7 @@ function storage_admiral_opening_luks_partition_data() {
 ## LVM2
 function storage_admiral_created_lvm2_partition_root() {
 
-    if [[ ! -e  /dev/mapper/lvm_root ]];then
+    if [[ $MODE == "install" ]];then
     
         /usr/bin/pvcreate /dev/mapper/lvm_root 
         /usr/bin/vgcreate proc /dev/mapper/lvm_root 
@@ -86,7 +86,8 @@ function storage_admiral_created_lvm2_partition_root() {
 
 function storage_admiral_created_lvm2_partition_data() {
     
-    if [[ ! -e  /dev/mapper/lvm_root ]];then
+
+    if [[ $MODE == "install" ]];then
 
         pvcreate /dev/mapper/lvm_data 
         vgcreate data /dev/mapper/lvm_data
@@ -170,7 +171,6 @@ function storage_admiral_mouting_lvm2_partition_root() {
 
     ## var partition
     mkdir /mnt/var
-
     mount -o defaults,rw,nosuid,nodev,noexec,relatime /dev/proc/vars /mnt/var 
 
 
