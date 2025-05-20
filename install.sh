@@ -6,9 +6,8 @@ source "$APPS/cfg/init/lib/package.sh"
 
 
 ## PREPARE
-umount -R /mnt > /dev/null &
-prepinst=$!
-wait $prepinst
+umount -R /mnt > /dev/null
+echo "MODE=$1" >> $APPS/env
 
 
 
@@ -33,9 +32,11 @@ fi
 
 
 
-## INSTALL PACKAGE PACKAGE
-install_package_main_admiral_basics
-prepare_configuration_admiral_basic
+## INSTALL PACKAGE
+install_package_main_blackbird_basics
+prepare_configuration_blackbird_basic
+config_package_main_blackbird_tunning
+config_package_main_blackbird_service
 
 
 ## CHROOT INSTALL PACKAGE

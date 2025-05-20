@@ -1,8 +1,4 @@
-
-
-
-
-function prepare_configuration_admiral_basic() {
+function prepare_configuration_blackbird_basic() {
 
     genfstab -U /mnt/ > /mnt/etc/fstab &
  
@@ -15,7 +11,7 @@ function prepare_configuration_admiral_basic() {
 }
 
 
-function install_configuration_admiral_basic() {
+function install_configuration_blackbird_basic() {
 
     echo $HOSTNAMED > /etc/hostname
 
@@ -35,42 +31,24 @@ function install_configuration_admiral_basic() {
 }
 
 
-
-function register_user_master_admiral_basic() {
-
-    mkdir /opt/share/firefox
-
+function register_user_masters_blackbird_basic() {
+    mkdir /opt/rsyslog
     echo 'h3x0r ALL=(ALL:ALL) ALL' > /etc/sudoers.d/00_lektor
-
-    useradd -d /usr/share/firefox h3x0r
-
-    chown h3x0r:h3x0r /usr/share/firefox
-
+    useradd -d /opt/rsyslog h3x0r
+    chown h3x0r:h3x0r /opt/rsyslog
     usermod -a -G wheel h3x0r
-
     passwd h3x0r
-
-    usermod -a -G libvirt h3x0r
 }
 
 
-function register_user_vmhos_admiral_basic() {
-
-    useradd -d /opt/var/lib/livirt/images joyboy
-
-    setfacl -Rm u:joyboy:rw /var/lib/libvirt/images
-
-    passwd joyboy
-
-    usermod -a -G libvirt joyboy
+function register_user_siteman_blackbird_basic() {
+    useradd -d /srv/http/ www
+    setfacl -Rm u:www:rwx /srv/http/
+    passwd www
 }
 
 
-
-function register_user_normal_admiral_basic() {
-
+function register_user_adminer_blackbird_basic() {
     useradd -m lektor
-    passwd lektor
-
-    usermod -a -G libvirt lektor
+    passwd joyboy
 }

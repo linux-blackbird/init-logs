@@ -2,72 +2,29 @@
 
 
 source /init/env
+source /init/lib/packages.sh
 source /init/lib/setconfs.sh
 source /init/lib/sepolicy.sh
 
-install_configuration_admiral_basic
 
+### CONFIG
+prepare_configuration_blackbird_basic
 
+### USERS
+register_user_masters_blackbird_basic
+register_user_siteman_blackbird_basic
+register_user_adminer_blackbird_basic
 
-### ADMINISTRATOR
-register_user_master_admiral_basic
+### INSTALL
+install_package_aurs_blackbird_basics
 
-
-
-
-
-### TECHNICAL
-
-systemctl enable systemd-networkd.socket 
-
-systemctl enable systemd-resolved 
-
-echo "cryptdevice=UUID=$(blkid -s UUID -o value /dev/$DISK_ROOT):crypto root=/dev/proc/root" > /etc/cmdline.d/01-boot.conf 
-
-echo "data UUID=$(blkid -s UUID -o value /dev/$DISK_DATA) none" >> /etc/crypttab 
-
-echo "intel_iommu=on i915.fastboot=1" >> /etc/cmdline.d/02-mods.conf 
-
-mv /boot/intel-ucode.img /boot/vmlinuz-linux-hardened /boot/kernel 
-
-rm /boot/initramfs-* 
-
-bootctl --path=/boot/ install 
-
-touch /etc/vconsole.conf 
-
-
-echo 'sysadmin ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/00_sysadmin
-
-sudo -H -u sysadmin bash -c "git clone https://aur.archlinux.org/mkinitcpio-clevis-hook /tmp/clevis"
-
-sudo -H -u sysadmin bash -c "makepkg -sric --dir /tmp/clevis --noconfirm"
-
-sudo -H -u sysadmin bash -c "gpg --recv-keys 2BBBD30FAAB29B3253BCFBA6F6947DAB68E7B931"
-
-sudo -H -u sysadmin bash -c "git clone https://aur.archlinux.org/aide.git /tmp/aide"
-
-sudo -H -u sysadmin bash -c "makepkg -sric --dir /tmp/aide --noconfirm"
-
-echo 'sysadmin ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/00_sysadmin
-
-
-systemctl enable firewalld 
-
-systemctl enable sshd 
-
-systemctl enable apparmor.service 
-
-cp /etc/pacman.d/mirrorlist /etc/pacman.d/backupmirror 
-
-systemctl enable tuned-ppd
-
-systemctl enable irqbalance.service
+### CONFIG
+config_package_main_blackbird_kernels
+config_package_main_blackbird_network
+config_package_main_blackbird_secured
 
 
 blackbird_cis_level_2_policy_install
 
-
 mkinitcpio -P
-
 exit
