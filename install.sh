@@ -2,7 +2,7 @@
 DURS=$(pwd)
 source $DURS/init-logs/env
 
-if [[ -d /mnt/* ]];then
+if [[ -d /mnt/boot ]];then
     umount -R /mnt
 fi
 
