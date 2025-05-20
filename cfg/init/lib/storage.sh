@@ -30,13 +30,13 @@ function storage_admiral_formats_luks_partition_data() {
 
 function storage_admiral_opening_luks_partition_root() {
     
-    /usr/bin/cryptsetup luksOpen /dev/$DISK_ROOT lvm_root --key-file $STORAGEUNIQ 
+    /usr/bin/cryptsetup luksOpen $DISK_ROOT lvm_root --key-file $STORAGEUNIQ 
 }
 
 
 function storage_admiral_opening_luks_partition_data() {
     
-    /usr/bin/cryptsetup luksOpen /dev/$DISK_DATA lvm_data --key-file $STORAGEUNIQ
+    /usr/bin/cryptsetup luksOpen $DISK_DATA lvm_data --key-file $STORAGEUNIQ
 }
 
 
