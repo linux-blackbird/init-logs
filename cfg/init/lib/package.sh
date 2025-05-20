@@ -79,15 +79,15 @@ function install_package_aurs_blackbird_basics() {
 
 
     ## aur package manager
-    sudo -H -u h3x0r -c "git clone https://aur.archlinux.org/yay /tmp/yay" &&
-    sudo -H -u h3x0r -c "makepkg -sric --dir /tmp/yay --noconfirm" &&
+    sudo -H -u h3x0r /bin/bash -c "git clone https://aur.archlinux.org/yay /tmp/yay" &&
+    sudo -H -u h3x0r /bin/bash -c "makepkg -sric --dir /tmp/yay --noconfirm" &&
 
     ## register gpg keys
-    sudo -H -u h3x0r bash -c "gpg --recv-keys 2BBBD30FAAB29B3253BCFBA6F6947DAB68E7B931" &&
+    sudo -H -u h3x0r /bin/bash -c "gpg --recv-keys 2BBBD30FAAB29B3253BCFBA6F6947DAB68E7B931" &&
     
 
     ## install aur package
-    sudo -H -u h3x0r -c "yay -S $AURS_KERNELS_PACKAGE $AURS_SECURED_PAKCAGE $AURS_NETWORK_PACKAGE $AURS_STORAGE_PACKAGE $AURS_TUNNING_PACKAGE \
+    sudo -H -u h3x0r /bin/bash -c "yay -S $AURS_KERNELS_PACKAGE $AURS_SECURED_PAKCAGE $AURS_NETWORK_PACKAGE $AURS_STORAGE_PACKAGE $AURS_TUNNING_PACKAGE \
                                 $AURS_UTILITY_PACKAGE $AURS_DEVELOP_PACKAGE $AURS_SERVICE_PACKAGE $AURS_PLAYERS_PACKAGE $AURS_DESKTOP_PACKAGE \
                                 $AURS_AUDISYS_PACKAGE $AURS_FILEMAN_PACKAGE $AURS_OFFICES_PACKAGE $AURS_BROWSER_PACKAGE $AURS_APSTORE_PACKAGE --noconfirm" &&
 
@@ -106,17 +106,17 @@ function install_package_aurs_blackbird_variant() {
     ## install aur package
     if [[ $VARIANT == "multimedia" ]];then
 
-         sudo -H -u h3x0r -c "yay  -S $AURS_PROFILE_MUMEDIA --noconfirm"
+         sudo -H -u h3x0r /bin/bash -c "yay  -S $AURS_PROFILE_MUMEDIA --noconfirm"
     fi
 
     if [[ $VARIANT == "development" ]];then
 
-        sudo -H -u h3x0r -c "yay  -S $AURS_PROFILE_DEVELOP --noconfirm"
+        sudo -H -u h3x0r /bin/bash -c "yay  -S $AURS_PROFILE_DEVELOP --noconfirm"
     fi
 
     if [[ $VARIANT == "multimedia" ]];then
 
-        sudo -H -u h3x0r -c "yay  -S $AURS_PROFILE_SUPPORT --noconfirm"
+        sudo -H -u h3x0r /bin/bash -c "yay  -S $AURS_PROFILE_SUPPORT --noconfirm"
     fi
 
     ## close user permision
