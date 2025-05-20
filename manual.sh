@@ -22,8 +22,8 @@ if [[ $1 == "install" ]];then
 
     cryptsetup luksOpen /dev/sda3 lvm_data 
 
-    pvcreate /dev/mapper/lvm_root 
 
+    pvcreate /dev/mapper/lvm_root 
 
     vgcreate proc /dev/mapper/lvm_root 
 

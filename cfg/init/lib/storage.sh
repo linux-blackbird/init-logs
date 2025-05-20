@@ -43,49 +43,75 @@ function storage_admiral_opening_luks_partition_data() {
 ## LVM2
 function storage_admiral_created_lvm2_partition_root() {
 
+    if [[ ! -f  /dev/mapper/lvm_root ]];then
     
-    /usr/bin/pvcreate /dev/mapper/lvm_root 
+        /usr/bin/pvcreate /dev/mapper/lvm_root 
+        /usr/bin/vgcreate proc /dev/mapper/lvm_root 
+    fi
 
-    
-    /usr/bin/vgcreate proc /dev/mapper/lvm_root 
+    if [[ ! -f /dev/proc/root ]];then
 
+        yes | /usr/bin/lvcreate -L 20G proc -n root 
+    fi
 
-    yes | /usr/bin/lvcreate -L 20G proc -n root 
+    if [[ ! -f /dev/proc/vars ]];then
 
+        yes | /usr/bin/lvcreate -L 5G proc -n vars 
+    fi
 
-    yes | /usr/bin/lvcreate -L 5G proc -n vars 
+    if [[ ! -f /dev/proc/vtmp ]];then
 
+        yes | /usr/bin/lvcreate -L 1G proc -n vtmp 
+    fi
 
-    yes | /usr/bin/lvcreate -L 1G proc -n vtmp 
+    if [[ ! -f /dev/proc/swap ]];then
 
-
-    yes | /usr/bin/lvcreate -l100%FREE proc -n swap 
+        yes | /usr/bin/lvcreate -l100%FREE proc -n swap
+    fi
 }
 
 
 function storage_admiral_created_lvm2_partition_data() {
     
+    if [[ ! -f  /dev/mapper/lvm_root ]];then
 
-    pvcreate /dev/mapper/lvm_data 
+        pvcreate /dev/mapper/lvm_data 
+        vgcreate data /dev/mapper/lvm_data
+    fi
 
-    vgcreate data /dev/mapper/lvm_data
+    if [[ ! -f /dev/data/home ]];then
 
-    yes | lvcreate -L 20G data -n home 
+        yes | lvcreate -L 20G data -n home 
+    fi
 
-    yes | lvcreate -L 50G data -n vlog
+    if [[ ! -f /dev/data/vlog ]];then
 
-    yes | lvcreate -L 20G data -n vaud 
+        yes | lvcreate -L 50G data -n vlog
+    fi
 
-    yes | lvcreate -L 20G data -n docs 
+    if [[ ! -f /dev/data/vaud ]];then
 
-    yes | lvcreate -L 20G data -n note 
+        yes | lvcreate -L 20G data -n vaud
+    fi
+
+    if [[ ! -f /dev/data/docs ]];then
+
+        yes | lvcreate -L 20G data -n docs
+    fi
+
+    if [[ ! -f /dev/data/note ]];then
+
+        yes | lvcreate -L 20G data -n note 
+    fi
 }
 
 
 function storage_admiral_formats_lvm2_partition_root() {
 
     
-    yes | mkfs.vfat -F32 -S 4096 -n BOOT /dev/nvme0n1p1 
+    if [[ $1 == "install" ]];then
+        yes | mkfs.vfat -F32 -S 4096 -n BOOT /dev/$DISK_BOOT 
+    fi
 
     
     yes | mkfs.ext4 -b 4096 /dev/proc/root 
@@ -103,16 +129,21 @@ function storage_admiral_formats_lvm2_partition_root() {
 
 
 function storage_admiral_formats_lvm2_partition_data() {
-
-    yes | mkfs.ext4 -b 4096 /dev/data/home
     
-    yes | mkfs.ext4 -b 4096 /dev/data/vlog 
 
-    yes | mkfs.ext4 -b 4096 /dev/data/vaud 
+    if [[ $1 == "install" ]];then
 
-    yes | mkfs.ext4 -b 4096 /dev/data/note
-    
-    yes | mkfs.ext4 -b 4096 /dev/data/docs
+        yes | mkfs.ext4 -b 4096 /dev/data/home
+        
+        yes | mkfs.ext4 -b 4096 /dev/data/vlog 
+
+        yes | mkfs.ext4 -b 4096 /dev/data/vaud 
+
+        yes | mkfs.ext4 -b 4096 /dev/data/note
+        
+        yes | mkfs.ext4 -b 4096 /dev/data/docs
+
+    fi
    
 }
 

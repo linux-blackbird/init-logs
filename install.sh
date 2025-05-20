@@ -5,8 +5,10 @@ source "$APPS/cfg/init/lib/storage.sh"
 
 
 ## PREPARE
+umount -R /mnt > /dev/null &
+prepinst=$!
+wait $prepinst
 
-umount -R /mnt > /dev/null
 
 
 ## STORAGE PREPARE
