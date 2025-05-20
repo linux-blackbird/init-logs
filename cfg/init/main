@@ -24,10 +24,10 @@ source /init/lib/spolicy.sh
 
 ### CONFIG
 config_package_pack_blackbird_kernels &&
-config_package_main_blackbird_network &&
-config_package_main_blackbird_secured &&
-config_package_main_blackbird_tunning &&
-config_package_main_blackbird_service &&
+config_package_pack_blackbird_network &&
+config_package_pack_blackbird_secured &&
+config_package_pack_blackbird_tunning &&
+config_package_pack_blackbird_service &&
 
 ### POLICY
 if [[ $SECPOLICY == "CIS-LEVEL-2" ]];then
