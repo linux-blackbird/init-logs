@@ -122,7 +122,7 @@ function storage_admiral_created_lvm2_partition_data() {
 function storage_admiral_formats_lvm2_partition_root() {
 
     
-    if [[ $1 == "install" ]];then
+    if [[ $MODE == "install" ]];then
         yes | mkfs.vfat -F32 -S 4096 -n BOOT $DISK_BOOT 
     fi
     
