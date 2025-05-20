@@ -2,74 +2,85 @@
 DURS=$(pwd)
 source $DURS/virtu/env
 
-### ADMINISTRATOR
 
-
-cryptsetup luksFormat /dev/sda2
-
-
-cryptsetup luksFormat /dev/sda3
-
-
-cryptsetup luksOpen /dev/sad2 lvm_root
-
-
-cryptsetup luksOpen /dev/sda3 lvm_data 
 
 
 ### TECHNICAL
 
-pvcreate /dev/mapper/lvm_root &
-pid=$!
-wait $pid
+if [[ $1 == "install" ]];then
 
-vgcreate proc /dev/mapper/lvm_root &
-pid=$!
-wait $pid
+    ### ADMINISTRATOR
 
-yes | lvcreate -L 20G proc -n root &
-pid=$!
-wait $pid
 
-yes | lvcreate -L 5G proc -n vars &
-pid=$!
-wait $pid
+    cryptsetup luksFormat /dev/sda2
 
-yes | lvcreate -L 1G proc -n vtmp &
-pid=$!
-wait $pid
 
-yes | lvcreate -l100%FREE proc -n swap &
-pid=$!
-wait $pid
+    cryptsetup luksFormat /dev/sda3
 
-pvcreate /dev/mapper/lvm_data &
-pid=$!
-wait $pid
 
-vgcreate data /dev/mapper/lvm_data &
-pid=$!
-wait $pid
+    cryptsetup luksOpen /dev/sad2 lvm_root
 
-yes | lvcreate -L 10G data -n home &
-pid=$!
-wait $pid
 
-yes | lvcreate -L 50G data -n vlog &
-pid=$!
-wait $pid
+    cryptsetup luksOpen /dev/sda3 lvm_data 
 
-yes | lvcreate -L 20G data -n vaud &
-pid=$!
-wait $pid
 
-yes | lvcreate -L 10G data -n docs &
-pid=$!
-wait $pid
+    pvcreate /dev/mapper/lvm_root &
+    pid=$!
+    wait $pid
 
-yes | lvcreate -L 10G data -n note &
-pid=$!
-wait $pid
+    vgcreate proc /dev/mapper/lvm_root &
+    pid=$!
+    wait $pid
+
+    yes | lvcreate -L 20G proc -n root &
+    pid=$!
+    wait $pid
+
+    yes | lvcreate -L 5G proc -n vars &
+    pid=$!
+    wait $pid
+
+    yes | lvcreate -L 1G proc -n vtmp &
+    pid=$!
+    wait $pid
+
+    yes | lvcreate -l100%FREE proc -n swap &
+    pid=$!
+    wait $pid
+
+    pvcreate /dev/mapper/lvm_data &
+    pid=$!
+    wait $pid
+
+    vgcreate data /dev/mapper/lvm_data &
+    pid=$!
+    wait $pid
+
+    yes | lvcreate -L 10G data -n home &
+    pid=$!
+    wait $pid
+
+    yes | lvcreate -L 50G data -n vlog &
+    pid=$!
+    wait $pid
+
+    yes | lvcreate -L 20G data -n vaud &
+    pid=$!
+    wait $pid
+
+    yes | lvcreate -L 10G data -n docs &
+    pid=$!
+    wait $pid
+
+    yes | lvcreate -L 10G data -n note &
+    pid=$!
+    wait $pid
+
+fi
+
+
+## FORMAT ROOT
+
 
 yes | mkfs.vfat -F32 -S 4096 -n BOOT /dev/sda1 &
 pid=$!
@@ -91,25 +102,33 @@ yes | mkswap /dev/proc/swap &
 pid=$!
 wait $pid
 
-yes | mkfs.ext4 -b 4096 /dev/data/home &
-pid=$!
-wait $pid
- 
-yes | mkfs.ext4 -b 4096 /dev/data/vlog &
-pid=$!
-wait $pid
 
-yes | mkfs.ext4 -b 4096 /dev/data/vaud &
-pid=$!
-wait $pid
+## FORMAT DATA
 
-yes | mkfs.ext4 -b 4096 /dev/data/docs &
-pid=$!
-wait $pid
+if [[ $1 === "install" ]];then 
 
-yes | mkfs.ext4 -b 4096 /dev/data/note &
-pid=$!
-wait $pid
+    yes | mkfs.ext4 -b 4096 /dev/data/home &
+    pid=$!
+    wait $pid
+    
+    yes | mkfs.ext4 -b 4096 /dev/data/vlog &
+    pid=$!
+    wait $pid
+
+    yes | mkfs.ext4 -b 4096 /dev/data/vaud &
+    pid=$!
+    wait $pid
+
+    yes | mkfs.ext4 -b 4096 /dev/data/docs &
+    pid=$!
+    wait $pid
+
+    yes | mkfs.ext4 -b 4096 /dev/data/note &
+    pid=$!
+    wait $pid
+
+fi
+
 
 mount /dev/proc/root /mnt/ &
 pid=$!

@@ -3,7 +3,7 @@
 
 source /init/env
 
-echo blackbird > /etc/hostname
+echo blackroz > /etc/hostname
 
 ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime 
 
@@ -41,7 +41,6 @@ usermod -a -G libvirt sysadmin
 
 ### TECHNICAL
 
-
 systemctl enable systemd-networkd.socket 
 
 systemctl enable systemd-resolved 
@@ -59,6 +58,21 @@ rm /boot/initramfs-*
 bootctl --path=/boot/ install 
 
 touch /etc/vconsole.conf 
+
+
+
+git clone https://aur.archlinux.org/mkinitcpio-clevis-hook /tmp/clevis
+
+makepkg -sric --dir /tmp/clevis --noconfirm
+
+gpg --recv-keys 2BBBD30FAAB29B3253BCFBA6F6947DAB68E7B931
+
+git clone https://aur.archlinux.org/aide.git /tmp/aide
+
+makepkg -sric --dir /tmp/aide --noconfirm
+
+
+
 
 systemctl enable firewalld 
 
