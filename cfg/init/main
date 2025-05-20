@@ -61,15 +61,15 @@ touch /etc/vconsole.conf
 
 
 
-git clone https://aur.archlinux.org/mkinitcpio-clevis-hook /tmp/clevis
+sudo -H -u sysadmin bash -c "git clone https://aur.archlinux.org/mkinitcpio-clevis-hook /tmp/clevis"
 
-makepkg -sric --dir /tmp/clevis --noconfirm
+sudo -H -u sysadmin bash -c "makepkg -sric --dir /tmp/clevis --noconfirm"
 
-gpg --recv-keys 2BBBD30FAAB29B3253BCFBA6F6947DAB68E7B931
+sudo -H -u sysadmin bash -c "gpg --recv-keys 2BBBD30FAAB29B3253BCFBA6F6947DAB68E7B931"
 
-git clone https://aur.archlinux.org/aide.git /tmp/aide
+sudo -H -u sysadmin bash -c "git clone https://aur.archlinux.org/aide.git /tmp/aide"
 
-makepkg -sric --dir /tmp/aide --noconfirm
+sudo -H -u sysadmin bash -c "makepkg -sric --dir /tmp/aide --noconfirm"
 
 
 
