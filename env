@@ -1,5 +1,6 @@
 HOSTNAMED="blackroz.srv"
 IPADDRRES="10.10.1.21"
+SECPOLICY="CIS-LEVEL-2"
 DISK_BOOT="/dev/sdb1"
 DISK_KEYS=""
 DISK_ROOT="/dev/sdb2"
