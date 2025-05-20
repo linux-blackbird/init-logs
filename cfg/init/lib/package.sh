@@ -129,7 +129,6 @@ function install_package_aurs_blackbird_variant() {
 ### CONFIGURATION
 function config_package_main_blackbird_kernels() {
 
-
     echo "cryptdevice=UUID=$(blkid -s UUID -o value $DISK_ROOT):crypto root=/dev/proc/root" > /etc/cmdline.d/01-boot.conf 
     echo "data UUID=$(blkid -s UUID -o value $DISK_DATA) none" >> /etc/crypttab 
     mv /boot/intel-ucode.img /boot/vmlinuz-linux-hardened /boot/kernel 
