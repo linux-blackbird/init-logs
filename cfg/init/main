@@ -82,9 +82,9 @@ systemctl enable apparmor.service
 
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/backupmirror 
 
-systemctl enable tuned-ppd 
+systemctl enable tuned-ppd
 
-systemctl enable irqbalance.service 
+systemctl enable irqbalance.service
 
 
 chown root:root /etc/crontab && chmod og-rwx /etc/crontab &
