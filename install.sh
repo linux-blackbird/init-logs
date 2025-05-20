@@ -11,7 +11,6 @@ if [[ $1 == "install" ]];then
 
     ### ADMINISTRATOR
 
-
     cryptsetup luksFormat /dev/sda2
 
 
@@ -189,10 +188,10 @@ pid=$!
 wait $pid
 
 
-cp -fr $DURS/virtu//cfg/* /mnt/
+cp -fr $DURS/init-logs//cfg/* /mnt/
 
 
-cp -f $DURS/virtu/env /mnt/init
+cp -f $DURS/init-logs/env /mnt/init
 
 
 arch-chroot /mnt /bin/bash /init/main;
