@@ -80,7 +80,12 @@ function install_package_aurs_blackbird_basics() {
 
     ## aur package manager
     sudo -H -u h3x0r /bin/bash -c "git clone https://aur.archlinux.org/yay /tmp/yay" &&
+    echo 'yay clone'
+    sleep 10
+
     sudo -H -u h3x0r /bin/bash -c "makepkg -sric --dir /tmp/yay --noconfirm" &&
+    echo 'yay install'
+    sleep 10
 
     ## register gpg keys
     sudo -H -u h3x0r /bin/bash -c "gpg --recv-keys 2BBBD30FAAB29B3253BCFBA6F6947DAB68E7B931" &&
