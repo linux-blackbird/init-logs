@@ -126,7 +126,7 @@ function install_package_aurs_blackbird_variant() {
 
 
 ### CONFIGURATION
-function config_package_main_blackbird_kernels() {
+function config_package_pack_blackbird_kernels() {
 
     echo "cryptdevice=UUID=$(blkid -s UUID -o value $DISK_ROOT):crypto root=/dev/proc/root" > /etc/cmdline.d/01-boot.conf 
     echo "data UUID=$(blkid -s UUID -o value $DISK_DATA) none" >> /etc/crypttab 
@@ -141,14 +141,14 @@ function config_package_main_blackbird_kernels() {
 }
 
 
-function config_package_main_blackbird_network() {
+function config_package_pack_blackbird_network() {
     systemctl enable sshd 
     systemctl enable systemd-networkd.socket
     systemctl enable systemd-resolved
 }
 
 
-function config_package_main_blackbird_secured() {
+function config_package_pack_blackbird_secured() {
 
     ## firewalld configuration
     systemctl enable firewalld 
@@ -165,65 +165,65 @@ function config_package_main_blackbird_secured() {
 }
 
 
-function config_package_main_blackbird_desktop() {
+function config_package_pack_blackbird_desktop() {
     echo 'no package registered'
 }
 
 
-function config_package_main_blackbird_storage() {
+function config_package_pack_blackbird_storage() {
     echo 'no package registered'
 }
 
 
-function config_package_main_blackbird_tunning() {
+function config_package_pack_blackbird_tunning() {
     cp /etc/pacman.d/mirrorlist /etc/pacman.d/backupmirror 
     systemctl enable tuned
     systemctl enable irqbalance.service
 }
 
 
-function config_package_main_blackbird_utility() {
+function config_package_pack_blackbird_utility() {
     echo 'no package registered'
 }
 
 
-function config_package_main_blackbird_develop() {
+function config_package_pack_blackbird_develop() {
     echo 'no package registered'
 }
 
 
-function config_package_main_blackbird_service() {
+function config_package_pack_blackbird_service() {
     ## nginx configuration
     mkdir /etc/nginx/sites-pool
     mkdir /etc/nginx/sites-main
 }
 
 
-function config_package_main_blackbird_players() {
+function config_package_pack_blackbird_players() {
     echo 'no package registered'
 }
 
 
-function config_package_main_blackbird_audisys() {
+function config_package_pack_blackbird_audisys() {
     echo 'no package registered'
 }
 
 
-function config_package_main_blackbird_fileman() {
+function config_package_pack_blackbird_fileman() {
     echo 'no package registered'
 }
 
 
-function config_package_main_blackbird_offices() {
+function config_package_pack_blackbird_offices() {
     echo 'no package registered'
 }
 
 
-function config_package_main_blackbird_browser() {
+function config_package_pack_blackbird_browser() {
     echo 'no package registered'
 }
 
 
-function config_package_main_blackbird_apstore() {
+function config_package_pack_blackbird_apstore() {
     echo 'no package registered'
 }
