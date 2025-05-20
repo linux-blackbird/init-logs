@@ -105,7 +105,7 @@ wait $pid
 
 ## FORMAT DATA
 
-if [[ $1 === "install" ]];then 
+if [[ $1 == "install" ]];then 
 
     yes | mkfs.ext4 -b 4096 /dev/data/home &
     pid=$!
