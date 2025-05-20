@@ -108,24 +108,24 @@ wait $pid
 if [[ $1 == "install" ]];then 
 
     yes | mkfs.ext4 -b 4096 /dev/data/home &
-    pid=$!
-    wait $pid
+    forma1=$!
+    wait $form1
     
     yes | mkfs.ext4 -b 4096 /dev/data/vlog &
-    pid=$!
-    wait $pid
+    form2=$!
+    wait $form2
 
     yes | mkfs.ext4 -b 4096 /dev/data/vaud &
-    pid=$!
-    wait $pid
+    form3=$!
+    wait $form3
 
     yes | mkfs.ext4 -b 4096 /dev/data/docs &
-    pid=$!
-    wait $pid
+    form4=$!
+    wait $form4
 
     yes | mkfs.ext4 -b 4096 /dev/data/note &
-    pid=$!
-    wait $pid
+    form5=$!
+    wait $form5
 fi
 
 
