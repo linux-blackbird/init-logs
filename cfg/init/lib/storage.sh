@@ -171,7 +171,7 @@ function storage_admiral_mouting_lvm2_partition_root() {
 
     ## mounting /boot
     mkdir /mnt/boot 
-    mount -o uid=0,gid=0,fmask=0077,dmask=0077 /dev/nvme0n1p1 /mnt/boot 
+    mount -o uid=0,gid=0,fmask=0077,dmask=0077 $DISK_BOOT /mnt/boot 
 
 
     ## var partition
@@ -185,27 +185,8 @@ function storage_admiral_mouting_lvm2_partition_root() {
     mount -o rw,nosuid,nodev,noexec,relatime /dev/proc/vtmp /mnt/var/tmp 
 
 
-    ## var/log partition
-    mkdir /mnt/var/log
-
-    mount -o rw,nosuid,nodev,noexec,relatime /dev/data/vlog /mnt/var/log 
-
-    ## var/log/audit partition
-    mkdir /mnt/var/log/audit 
-
-    mount -o rw,nosuid,nodev,noexec,relatime /dev/data/vaud /mnt/var/log/audit
 
 
-    ## srv/http/public partition
-    mkdir /mnt/srv/ /mnt/srv/http/ /mnt/srv/http/public/
-
-    mount -o rw,nosuid,nodev,relatime /dev/data/docs /mnt/srv/http/public
-
-
-    ## srv/http/public partition
-    mkdir /mnt/srv/http/intern/
-
-    mount -o rw,nosuid,nodev,relatime /dev/data/note /mnt/srv/http/intern
 
 
 
@@ -218,20 +199,26 @@ function storage_admiral_mouting_lvm2_partition_data() {
 
     ## mounting /home
     mkdir /mnt/home 
-
     mount -o rw,nosuid,nodev,noexec,relatime /dev/data/home /mnt/home 
 
 
-    ## mounting /var/lib/libvirt/images
-    mkdir /mnt/var/lib /mnt/var/lib/libvirt /mnt/var/lib/libvirt/images 
+    ## var/log partition
+    mkdir /mnt/var/log
+    mount -o rw,nosuid,nodev,noexec,relatime /dev/data/vlog /mnt/var/log 
 
-    mount /dev/data/host /mnt/var/lib/libvirt/images 
+    ## var/log/audit partition
+    mkdir /mnt/var/log/audit 
+    mount -o rw,nosuid,nodev,noexec,relatime /dev/data/vaud /mnt/var/log/audit
 
 
-    ## mounting /var/lib/containers
-    mkdir /mnt/var/lib/containers 
+    ## srv/http/public partition
+    mkdir /mnt/srv/ /mnt/srv/http/ /mnt/srv/http/public/
+    mount -o rw,nosuid,nodev,relatime /dev/data/docs /mnt/srv/http/public
 
-    mount /dev/data/pods /mnt/var/lib/containers 
+
+    ## srv/http/public partition
+    mkdir /mnt/srv/http/intern/
+    mount -o rw,nosuid,nodev,relatime /dev/data/note /mnt/srv/http/intern
 
 }
 
@@ -291,8 +278,6 @@ function setup_storage_admiral_protocol_reset() {
 function setup_storage_layout_installations() {
 
     genfstab -U /mnt/ > /mnt/etc/fstab 
-
     echo 'tmpfs     /tmp        tmpfs   defaults,rw,nosuid,nodev,noexec,relatime,size=1G    0 0' >> /mnt/etc/fstab
-
     echo 'tmpfs     /dev/shm    tmpfs   defaults,rw,nosuid,nodev,noexec,relatime,size=1G    0 0' >> /mnt/etc/fstab
 }
