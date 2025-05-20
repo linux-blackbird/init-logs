@@ -135,7 +135,7 @@ function config_package_pack_blackbird_kernels() {
     sleep 10;
     echo "Disk data is : $DISK_DATA";
     sleep 10;
-    
+
 
     echo "cryptdevice=UUID=$(blkid -s UUID -o value $DISK_ROOT):crypto root=/dev/proc/root" > /etc/cmdline.d/01-boot.conf 
     echo "data UUID=$(blkid -s UUID -o value $DISK_DATA) none" >> /etc/crypttab 
@@ -171,6 +171,10 @@ function config_package_pack_blackbird_secured() {
     systemctl enable clevis-luks-askpass.path
     echo "ip=$IPADDRRES::10.10.1.1:255.255.255.0::eth0:none nameserver=10.10.1.1" > /etc/cmdline.d/06-nets.conf
     mkinitcpio -P
+
+    
+    clevis luks bind -d $DISK_ROOT sss '{"t": 2, "pins": {"tang": [ {"url": "http://10.10.1.2:7500"}, {"url": "http://10.10.1.22:7500"}, {"url": "http://10.10.1.23:7500"} ], "tpm2": [] }}'
+    clevis luks bind -d $DISK_DATA sss '{"t": 2, "pins": {"tang": [ {"url": "http://10.10.1.2:7500"}, {"url": "http://10.10.1.22:7500"}, {"url": "http://10.10.1.23:7500"} ], "tpm2": [] }}'
 }
 
 

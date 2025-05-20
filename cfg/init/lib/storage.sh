@@ -1,6 +1,6 @@
 #!/bin/bash
 
-STORAGERAND=MIIJQwIBADANB;
+STORAGERAND=MIIJQwIBADANB
 STORAGEUNIQ=$APPS/cfg/init/env/$STORAGERAND
 
 
@@ -18,7 +18,7 @@ function storage_admiral_formats_luks_partition_root() {
 
     if [[ ! -e  /dev/mapper/lvm_root ]];then
 
-        echo "$STORAGERAND" | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --key-file $STORAGEUNIQ --sector-size 4096 $DISK_ROOT &
+        echo $STORAGERAND | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --key-file $STORAGEUNIQ --sector-size 4096 $DISK_ROOT &
         background_pid=$!
         wait $background_pid
 
@@ -30,7 +30,7 @@ function storage_admiral_formats_luks_partition_data() {
 
     if [[ ! -e  /dev/mapper/lvm_data ]];then
 
-        echo "$STORAGERAND" | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --key-file $STORAGEUNIQ --sector-size 4096 $DISK_DATA 
+        echo $STORAGERAND | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --key-file $STORAGEUNIQ --sector-size 4096 $DISK_DATA 
     fi
 }
 
