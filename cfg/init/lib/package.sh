@@ -155,9 +155,8 @@ function config_package_main_blackbird_secured() {
 
     ## tang server
     systemctl enable tangd.socket
-    firewall-cmd --zone=public --add-port=7500/tcp --permanent
-
-
+   
+   
     ## clevis kernel parameter
     systemctl enable clevis-luks-askpass.path
     echo "ip=$IPADDRRES::10.10.1.1:255.255.255.0::eth0:none nameserver=10.10.1.1" > /etc/cmdline.d/06-nets.conf
