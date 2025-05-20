@@ -126,76 +126,44 @@ if [[ $1 == "install" ]];then
     yes | mkfs.ext4 -b 4096 /dev/data/note &
     pid=$!
     wait $pid
-
 fi
 
 
-mount /dev/proc/root /mnt/ &
-pid=$!
-wait $pid
+mount /dev/proc/root /mnt/ 
 
-mkdir /mnt/boot && mount -o uid=0,gid=0,fmask=0077,dmask=0077 /dev/sda1 /mnt/boot &
-pid=$!
-wait $pid
+mkdir /mnt/boot && mount -o uid=0,gid=0,fmask=0077,dmask=0077 /dev/sda1 /mnt/boot
 
-mkdir /mnt/var && mount -o defaults,rw,nosuid,nodev,noexec,relatime /dev/proc/vars /mnt/var &
-pid=$!
-wait $pid
+mkdir /mnt/var && mount -o defaults,rw,nosuid,nodev,noexec,relatime /dev/proc/vars /mnt/var 
 
 mkdir /mnt/var/tmp && mount -o rw,nosuid,nodev,noexec,relatime /dev/proc/vtmp /mnt/var/tmp &
-pid=$!
-wait $pid
 
 swapon /dev/proc/swap &
-pid=$!
-wait $pid
 
 mkdir /mnt/home && mount -o rw,nosuid,nodev,noexec,relatime /dev/data/home /mnt/home &
-pid=$!
-wait $pid 
 
 mkdir /mnt/var/log && mount -o rw,nosuid,nodev,noexec,relatime /dev/data/vlog /mnt/var/log &
-pid=$!
-wait $pid
 
 mkdir /mnt/var/log/audit && mount -o rw,nosuid,nodev,noexec,relatime /dev/data/vaud /mnt/var/log/audit &
-pid=$!
-wait $pid
 
 mkdir /mnt/srv/ /mnt/srv/http /mnt/srv/http/public /mnt/srv/http/intern && mount -o rw,nosuid,nodev,relatime /dev/data/docs /mnt/srv/http/public && mount -o rw,nosuid,nodev,relatime /dev/data/note /mnt/srv/http/intern &
-pid=$!
-wait $pid
 
 reflector -f 5 -c id --save /etc/pacman.d/mirrorlist
 
 pacstrap /mnt/ linux-hardened linux-firmware mkinitcpio intel-ucode lvm2 base base-devel neovim git openssh polkit less firewalld tang clevis mkinitcpio-nfs-utils luksmeta apparmor libpwquality rsync reflector nftables tuned tuned-ppd irqbalance nginx&
-pid=$!
-wait $pid
 
 genfstab -U /mnt/ > /mnt/etc/fstab &
-pid=$!
-wait $pid 
-
+ 
 cp /etc/systemd/network/* /mnt/etc/systemd/network/ &
-pid=$!
-wait $pid
 
 echo 'tmpfs     /tmp        tmpfs   defaults,rw,nosuid,nodev,noexec,relatime,size=1G    0 0' >> /mnt/etc/fstab &
-pid=$!
-wait $pid
 
 echo 'tmpfs     /dev/shm    tmpfs   defaults,rw,nosuid,nodev,noexec,relatime,size=1G    0 0' >> /mnt/etc/fstab &
-pid=$!
-wait $pid
 
+cp -fr "$DURS/init-logs//cfg/*" /mnt/
 
-cp -fr $DURS/init-logs//cfg/* /mnt/
+cp -f "$DURS/init-logs/env" /mnt/init
 
-
-cp -f $DURS/init-logs/env /mnt/init
-
-
-arch-chroot /mnt /bin/bash /init/main;
+arch-chroot /mnt /bin/bash /init/main
 
 
 
