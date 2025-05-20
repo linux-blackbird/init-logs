@@ -2,9 +2,9 @@
 
 
 source /init/env
-source /init/lib/packages.sh
-source /init/lib/setconfs.sh
-source /init/lib/sepolicy.sh
+source /init/lib/package.sh
+source /init/lib/setconf.sh
+source /init/lib/spolicy.sh
 
 
 ### CONFIG
