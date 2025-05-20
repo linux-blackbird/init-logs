@@ -2,7 +2,7 @@
 
 ## PREPARE
 umount -R /mnt > /dev/null
-APPS=$(pwd)/init-logs
+APPS=/init-logs
 printf "\nMODE=$1" >> $APPS/env
 
 
