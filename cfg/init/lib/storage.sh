@@ -29,14 +29,20 @@ function storage_admiral_formats_luks_partition_data() {
 
 
 function storage_admiral_opening_luks_partition_root() {
+
+    if [[ ! -f  /dev/mapper/lvm_root ]];then
     
-    /usr/bin/cryptsetup luksOpen $DISK_ROOT lvm_root --key-file $STORAGEUNIQ 
+        /usr/bin/cryptsetup luksOpen $DISK_ROOT lvm_root --key-file $STORAGEUNIQ 
+    fi
 }
 
 
 function storage_admiral_opening_luks_partition_data() {
     
-    /usr/bin/cryptsetup luksOpen $DISK_DATA lvm_data --key-file $STORAGEUNIQ
+    if [[ ! -f  /dev/mapper/lvm_data ]];then
+    
+        /usr/bin/cryptsetup luksOpen $DISK_DATA lvm_data --key-file $STORAGEUNIQ
+    fi
 }
 
 
@@ -129,7 +135,7 @@ function storage_admiral_formats_lvm2_partition_root() {
 
 
 function storage_admiral_formats_lvm2_partition_data() {
-    
+
 
     if [[ $1 == "install" ]];then
 
