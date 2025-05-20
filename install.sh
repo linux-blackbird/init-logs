@@ -76,7 +76,6 @@ if [[ $1 == "install" ]];then
     yes | lvcreate -L 10G data -n note &
     pid=$!
     wait $pid
-
 fi
 
 
