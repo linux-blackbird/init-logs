@@ -214,7 +214,6 @@ function storage_admiral_mouting_lvm2_partition_data() {
     ## srv/http/public partition
     mkdir /mnt/srv/http/intern/
     mount -o rw,nosuid,nodev,relatime /dev/data/note /mnt/srv/http/intern
-
 }
 
 
