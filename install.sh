@@ -1,5 +1,5 @@
 #!/bin/bash
-PATH=$(pwd)
+PATH=$(pwd)/init-logs
 source "$PATH/env"
 source "$PATH/cfg/init/lib/storage.sh"
 
