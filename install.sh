@@ -13,8 +13,8 @@ elif [[ $1 == "swipe" ]];then
     setup_storage_admiral_protocol_swipe
 
 else
-
-    setup_storage_admiral_protocol_reset
+    echo 'rset'
+    #setup_storage_admiral_protocol_reset
 fi
 
 
