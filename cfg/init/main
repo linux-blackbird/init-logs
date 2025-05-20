@@ -8,8 +8,7 @@ source /init/lib/spolicy.sh
 
 
 ### CONFIG
-prepare_configuration_blackbird_basic &&
-
+install_configuration_blackbird_basic &&
 
 ### USERS
 register_user_masters_blackbird_basic &&
