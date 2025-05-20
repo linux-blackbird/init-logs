@@ -1,7 +1,7 @@
 #!/bin/bash
 
 STORAGERAND=MIIJQwIBADANB;
-STORAGEUNIQ=$PATH/admiral/cfg/tmp/init/$STORAGERAND
+STORAGEUNIQ=$PATH/cfg/tmp/init/$STORAGERAND
 
 
 ## LUKS
