@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source /init/env/data
-
 
 MAIN_KERNELS_PACKAGE="linux-hardened linux-firmware mkinitcpio intel-ucode base base-devel"
 MAIN_NETWORK_PACKAGE="openssh"
