@@ -185,11 +185,6 @@ function storage_admiral_mouting_lvm2_partition_root() {
     mount -o rw,nosuid,nodev,noexec,relatime /dev/proc/vtmp /mnt/var/tmp 
 
 
-
-
-
-
-
     ## swap partition
     swapon /dev/proc/swap 
 }
