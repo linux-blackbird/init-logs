@@ -124,8 +124,6 @@ function storage_admiral_formats_lvm2_partition_root() {
     
     if [[ $MODE == "install" ]];then
         yes | mkfs.vfat -F32 -S 4096 -n BOOT $DISK_BOOT 
-        echo "boot-formated"
-        sleep 2
     fi
     
     yes | mkfs.ext4 -b 4096 /dev/proc/root 
@@ -168,6 +166,7 @@ function storage_admiral_mouting_lvm2_partition_root() {
     ## mounting /boot
     mkdir /mnt/boot 
     mount -o uid=0,gid=0,fmask=0077,dmask=0077 $DISK_BOOT /mnt/boot 
+    rm -fr /mnt/boot > /dev/null
 
 
     ## var partition
@@ -265,13 +264,12 @@ function setup_storage_admiral_protocol_reset() {
     storage_admiral_opening_luks_partition_root
     storage_admiral_opening_luks_partition_data
 
-    ## prepare lvm2
+    ## prepare lvm2 root
     storage_admiral_formats_lvm2_partition_root
-
-    ## mounter lvm2 root
     storage_admiral_mouting_lvm2_partition_root
+    
 
-    ## mounter lvm2 data
+    ## prepare lvm2 data
     storage_admiral_mouting_lvm2_partition_data
 }
 
