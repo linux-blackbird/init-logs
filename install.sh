@@ -10,7 +10,7 @@ echo "MODE=$1" >> $APPS/env
 source "$APPS/env"
 source "$APPS/cfg/init/lib/storage.sh"
 source "$APPS/cfg/init/lib/package.sh"
-
+source "$APPS/cfg/init/lib/setconf.sh"
 
 ## STORAGE PREPARE
 if [[ $1 == "install" ]];then
