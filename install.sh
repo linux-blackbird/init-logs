@@ -33,10 +33,10 @@ fi
 
 
 
-## INSTALL PACKAGE
-#install_package_main_blackbird_basics &&
-#prepare_configuration_blackbird_basic &&
+INSTALL PACKAGE
+install_package_main_blackbird_basics &&
+prepare_configuration_blackbird_basic &&
 
 
 ## CHROOT INSTALL PACKAGE
-#arch-chroot /mnt /bin/bash /init/main
+arch-chroot /mnt /bin/bash /init/main
