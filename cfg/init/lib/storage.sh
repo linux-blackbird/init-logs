@@ -17,7 +17,7 @@ function storage_admiral_formats_luks_partition_keys() {
         echo $STORAGERAND | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --sector-size 4096 $DISK_KEYS
         echo $STORAGERAND | /usr/bin/cryptsetup luksAddKey --batch-mode --type luks2 --key-file $STORAGEUNIQ $DISK_KEYS
     else
-         echo 'No directory keys needed'
+        echo 'No directory keys needed'
     fi
 }
 
