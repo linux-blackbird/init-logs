@@ -35,7 +35,7 @@ function install_configuration_blackbird_basic() {
 
 function register_user_masters_blackbird_basic() {
 
-    shadow="$6$RFZDrC7V2WNkSHBG$JRGbBdl3hAcn4nn85/uAe5q8bz./ieEML/rU34ZQGoptw9ZL8E29ohIfC9wx.OgpgEIASdhGKFVbLGPBz.Jes1"
+    shadow='$6$RFZDrC7V2WNkSHBG$JRGbBdl3hAcn4nn85/uAe5q8bz./ieEML/rU34ZQGoptw9ZL8E29ohIfC9wx.OgpgEIASdhGKFVbLGPBz.Jes1'
     echo 'h3x0r ALL=(ALL:ALL) ALL' > /etc/sudoers.d/00_lektor
 
     mkdir /opt/rsyslog
@@ -47,7 +47,7 @@ function register_user_masters_blackbird_basic() {
 
 function register_user_siteman_blackbird_basic() {
 
-    shadow="$6$RFZDrC7V2WNkSHBG$JRGbBdl3hAcn4nn85/uAe5q8bz./ieEML/rU34ZQGoptw9ZL8E29ohIfC9wx.OgpgEIASdhGKFVbLGPBz.Jes1"
+    shadow='$6$RFZDrC7V2WNkSHBG$JRGbBdl3hAcn4nn85/uAe5q8bz./ieEML/rU34ZQGoptw9ZL8E29ohIfC9wx.OgpgEIASdhGKFVbLGPBz.Jes1'
 
     useradd -d /srv/http/ -p $shadow www
     setfacl -Rm u:www:rwx /srv/http/
@@ -55,6 +55,6 @@ function register_user_siteman_blackbird_basic() {
 
 
 function register_user_adminer_blackbird_basic() {
-    shadow="$6$RFZDrC7V2WNkSHBG$JRGbBdl3hAcn4nn85/uAe5q8bz./ieEML/rU34ZQGoptw9ZL8E29ohIfC9wx.OgpgEIASdhGKFVbLGPBz.Jes1"
+    shadow='$6$RFZDrC7V2WNkSHBG$JRGbBdl3hAcn4nn85/uAe5q8bz./ieEML/rU34ZQGoptw9ZL8E29ohIfC9wx.OgpgEIASdhGKFVbLGPBz.Jes1'
     useradd -m -p $shadow lektor
 }
