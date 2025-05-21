@@ -9,7 +9,7 @@ MAIN_TUNNING_PACKAGE="reflector tuned tuned-ppd irqbalance"
 MAIN_UTILITY_PACKAGE="git less btop"
 MAIN_DEVELOP_PACKAGE="neovim"
 MAIN_BACKUPS_PACKAGE="rsync"
-MAIN_AUDITOR_PACKAGE="loki grafana"
+MAIN_AUDITOR_PACKAGE=""
 MAIN_SYSTEMS_PACKAGE=""
 MAIN_SERVICE_PACKAGE="nginx"
 MAIN_OFFICES_PACKAGE="hugo go"
@@ -197,6 +197,7 @@ function config_package_pack_blackbird_develop() {
 
 function config_package_pack_blackbird_service() {
     ## nginx configuration
+    systemctl enable nginx
     mkdir /etc/nginx/sites-pool
     mkdir /etc/nginx/sites-main
 }
