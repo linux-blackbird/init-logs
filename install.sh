@@ -12,8 +12,7 @@ source "$APPS/cfg/init/lib/storage.sh"
 source "$APPS/cfg/init/lib/package.sh"
 source "$APPS/cfg/init/lib/setconf.sh"
 
-echo $MODE;
-
+e
 ## STORAGE PREPARE
 if [[ $MODE == "install" ]];then
 
@@ -35,8 +34,8 @@ fi
 
 
 ## INSTALL PACKAGE
-#install_package_main_blackbird_basics &&
-#prepare_configuration_blackbird_basic &&
+install_package_main_blackbird_basics &&
+prepare_configuration_blackbird_basic &&
 
 
 ## CHROOT INSTALL PACKAGE

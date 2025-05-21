@@ -187,24 +187,31 @@ function storage_blackbird_mouting_lvm2_partition_root() {
 
 
     ## mounting /boot
-    mkdir /mnt/boot
-    rm -fr /mnt/boot/* > /dev/null
+    if [ ! -d /mnt/boot ];then
+        mkdir /mnt/boot 
+    fi
     mount -o uid=0,gid=0,fmask=0077,dmask=0077 $DISK_BOOT /mnt/boot 
     
 
 
     ## var partition
-    mkdir /mnt/var
+    if [ ! -d /mnt/var ];then
+        mkdir /mnt/var 
+    fi
     mount -o defaults,rw,nosuid,nodev,noexec,relatime /dev/proc/vars /mnt/var 
 
 
     ## var/tmp partition
-    mkdir /mnt/var/tmp 
+    if [ ! -d /mnt/var/tmp ];then
+        mkdir /mnt/var/tmp 
+    fi
     mount -o rw,nosuid,nodev,noexec,relatime /dev/proc/vtmp /mnt/var/tmp 
 
 
     ## swap partition
     swapon /dev/proc/swap 
+
+    echo 'proc root mounting done'
 }
 
 
@@ -212,34 +219,34 @@ function storage_blackbird_mouting_lvm2_partition_data() {
 
     ## mounting /home
 
-    if [[ ! -d /mnt/home  ]];then
+    if [ ! -d /mnt/home ];then
         mkdir /mnt/home 
     fi
     mount -o rw,nosuid,nodev,noexec,relatime /dev/data/home /mnt/home 
 
 
     ## var/log partition
-    if [[ ! -d /mnt/var/log  ]];then
+    if [ ! -d /mnt/var/log  ];then
         mkdir /mnt/var/log
     fi
     mount -o rw,nosuid,nodev,noexec,relatime /dev/data/vlog /mnt/var/log 
 
     ## var/log/audit partition
-    if [[ ! -d /mnt/var/log/audit  ]];then
+    if [ ! -d /mnt/var/log/audit  ];then
         mkdir /mnt/var/log/audit 
     fi
     mount -o rw,nosuid,nodev,noexec,relatime /dev/data/vaud /mnt/var/log/audit
 
 
     ## srv/http/public partition
-    if [[ ! -d /mnt/srv/http/public/  ]];then
+    if [ ! -d /mnt/srv/http/public/ ];then
         mkdir /mnt/srv/ /mnt/srv/http/ /mnt/srv/http/public/
     fi
     mount -o rw,nosuid,nodev,relatime /dev/data/docs /mnt/srv/http/public
 
 
     ## srv/http/public partition
-    if [[ ! -d /mnt/srv/http/intern/  ]];then
+    if [ ! -d /mnt/srv/http/intern/ ];then
         mkdir /mnt/srv/http/intern/
     fi
     mount -o rw,nosuid,nodev,relatime /dev/data/note /mnt/srv/http/intern
@@ -249,25 +256,30 @@ function storage_blackbird_mouting_lvm2_partition_data() {
 function setup_storage_blackbird_protocol_fresh() {
 
     ## preparation
-    storage_blackbird_prepare_moun_partition_proc 
-    storage_blackbird_prepare_init_partition_proc 
+    storage_blackbird_prepare_moun_partition_proc &&
+    storage_blackbird_prepare_init_partition_proc &&
   
-    ## create and format
-    storage_blackbird_formats_luks_partition_keys 
-    storage_blackbird_formats_luks_partition_root 
-    storage_blackbird_formats_luks_partition_data 
+    ## create luks
+    storage_blackbird_formats_luks_partition_keys &&
+    storage_blackbird_formats_luks_partition_root &&
+    storage_blackbird_formats_luks_partition_data &&
 
-    ## prepare lvm2 root
-    storage_blackbird_opening_luks_partition_root 
-    storage_blackbird_created_lvm2_partition_root 
-    storage_blackbird_formats_lvm2_partition_root 
-    storage_blackbird_mouting_lvm2_partition_root 
+    ## opening luks
+    storage_blackbird_opening_luks_partition_root &&
+    storage_blackbird_opening_luks_partition_data &&
+    
+    
+    ## prepare lvm2 
+    storage_blackbird_created_lvm2_partition_root &&
+    storage_blackbird_created_lvm2_partition_data &&
 
+    ## format lvm2 
+    storage_blackbird_formats_lvm2_partition_root &&
+    storage_blackbird_formats_lvm2_partition_data &&
 
-    ## prepare lvm2 data
-    storage_blackbird_opening_luks_partition_data 
-    storage_blackbird_created_lvm2_partition_data 
-    storage_blackbird_formats_lvm2_partition_data 
+     
+    ## mounting lvm2 
+    storage_blackbird_mouting_lvm2_partition_root &&
     storage_blackbird_mouting_lvm2_partition_data 
 }
 
