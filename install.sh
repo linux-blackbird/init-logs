@@ -34,7 +34,7 @@ fi
 
 
 
-INSTALL PACKAGE
+## INSTALL PACKAGE
 install_package_main_blackbird_basics &&
 prepare_configuration_blackbird_basic &&
 
