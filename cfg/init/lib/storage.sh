@@ -20,7 +20,8 @@ function storage_admiral_formats_luks_partition_root() {
         swapoff /dev/proc/swap 
         yes | lvremove /dev/proc/*
         yes | vgremove proc
-        yes | pvremove /dev/mapper/lvm_root   
+        yes | pvremove /dev/mapper/lvm_root  
+        yes | /usr/bin/cryptsetup luksClose /dev/mapper/lvm_root   
     fi
 
     echo $STORAGERAND | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --sector-size 4096 $DISK_ROOT
@@ -34,6 +35,7 @@ function storage_admiral_formats_luks_partition_data() {
         yes | lvremove /dev/data/*
         yes | vgremove data
         yes | pvremove /dev/mapper/lvm_data   
+        yes | /usr/bin/cryptsetup luksClose /dev/mapper/lvm_data   
     fi
 
     echo $STORAGERAND | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --key-file $STORAGEUNIQ --sector-size 4096 $DISK_DATA 
