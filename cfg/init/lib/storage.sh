@@ -1,7 +1,7 @@
 #!/bin/bash
 
 STORAGERAND=MIIJQwIBADANB
-STORAGEUNIQ=$APPS/cfg/init/env/$STORAGERAND
+STORAGEUNIQ=/init-logs/cfg/init/env/MIIJQwIBADANB
 
 
 function storage_blackbird_prepare_init_partition_proc() {
