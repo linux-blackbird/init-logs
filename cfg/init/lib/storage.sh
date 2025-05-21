@@ -30,10 +30,13 @@ function storage_admiral_formats_luks_partition_root() {
 
 function storage_admiral_formats_luks_partition_data() {
 
-    if [[ ! -e  /dev/mapper/lvm_data ]];then
-
-        echo $STORAGERAND | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --key-file $STORAGEUNIQ --sector-size 4096 $DISK_DATA 
+     if [[ -e  /dev/mapper/lvm_data ]];then
+        yes | lvremove /dev/data/*
+        yes | vgremove data
+        yes | pvremove /dev/mapper/lvm_data   
     fi
+
+    echo $STORAGERAND | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --key-file $STORAGEUNIQ --sector-size 4096 $DISK_DATA 
 }
 
 
