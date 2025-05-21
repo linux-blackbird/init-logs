@@ -25,8 +25,8 @@ function storage_blackbird_formats_luks_partition_keys() {
 function storage_blackbird_formats_luks_partition_root() {  
 
     if [[ -e /dev/mapper/lvm_root ]];then
-        swapoff /dev/proc/swap 
-        yes | lvremove /dev/proc/*
+        swapoff /dev/proc/swap &&
+        yes | lvremove /dev/proc/* &&
         yes | vgremove proc
         yes | pvremove /dev/mapper/lvm_root  
         yes | /usr/bin/cryptsetup luksClose /dev/mapper/lvm_root   
@@ -40,9 +40,9 @@ function storage_blackbird_formats_luks_partition_root() {
 function storage_blackbird_formats_luks_partition_data() {
 
      if [[ -e  /dev/mapper/lvm_data ]];then
-        yes | lvremove /dev/data/*
-        yes | vgremove data
-        yes | pvremove /dev/mapper/lvm_data   
+        yes | lvremove /dev/data/* &&
+        yes | vgremove data &&
+        yes | pvremove /dev/mapper/lvm_data    
         yes | /usr/bin/cryptsetup luksClose /dev/mapper/lvm_data   
     fi
     echo $STORAGERAND | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --sector-size 4096 $DISK_DATA
