@@ -3,7 +3,6 @@ Name=en*
 Name=eth*
 
 [Link]
-LinkPolicy=always-up
 RequiredForOnline=routable
 
 [Network]
