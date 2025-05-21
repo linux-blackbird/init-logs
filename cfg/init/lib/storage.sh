@@ -24,7 +24,7 @@ function storage_blackbird_formats_luks_partition_keys() {
 
 function storage_blackbird_formats_luks_partition_root() {  
 
-    if [[ -e /dev/mapper/lvm_root ]];then
+    if [[ -d /dev/proc ]];then
         swapoff /dev/proc/swap &&
         yes | lvremove /dev/proc/* &&
         yes | vgremove proc
@@ -39,7 +39,7 @@ function storage_blackbird_formats_luks_partition_root() {
 
 function storage_blackbird_formats_luks_partition_data() {
 
-     if [[ -e  /dev/mapper/lvm_data ]];then
+     if [[ -d  /dev/data ]];then
         yes | lvremove /dev/data/* &&
         yes | vgremove data &&
         yes | pvremove /dev/mapper/lvm_data    
