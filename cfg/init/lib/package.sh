@@ -198,8 +198,6 @@ function config_package_pack_blackbird_develop() {
 function config_package_pack_blackbird_service() {
     ## nginx configuration
     systemctl enable nginx
-    mkdir /etc/nginx/sites-pool
-    mkdir /etc/nginx/sites-main
 }
 
 
