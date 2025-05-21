@@ -39,7 +39,7 @@ function storage_blackbird_formats_luks_partition_keys() {
 
     if [[ ! -z $DISK_KEYS ]];then
 
-        cryptsetup luksFormat --type luks2 --sector-size 4096 --key-file $STORAGEUNIQ $DISK_KEYS
+        cryptsetup luksFormat --type luks2 --sector-size 4096 --batch-mode --key-file $STORAGEUNIQ $DISK_KEYS
         echo $STORAGERAND | cryptsetup luksAddKey --key-file $STORAGEUNIQ $DISK_KEYS    
 
     else
@@ -49,13 +49,13 @@ function storage_blackbird_formats_luks_partition_keys() {
 
 
 function storage_blackbird_formats_luks_partition_root() {  
-    cryptsetup luksFormat --type luks2 --sector-size 4096 --key-file $STORAGEUNIQ $DISK_ROOT
+    cryptsetup luksFormat --type luks2 --sector-size 4096 --batch-mode --key-file $STORAGEUNIQ $DISK_ROOT
     echo $STORAGERAND | cryptsetup luksAddKey --key-file $STORAGEUNIQ $DISK_ROOT    
 }
 
 
 function storage_blackbird_formats_luks_partition_data() {
-    cryptsetup luksFormat --type luks2 --sector-size 4096 --key-file $STORAGEUNIQ $DISK_DATA
+    cryptsetup luksFormat --type luks2 --sector-size 4096 --batch-mode --key-file $STORAGEUNIQ $DISK_DATA
     echo $STORAGERAND | cryptsetup luksAddKey --key-file $STORAGEUNIQ $DISK_DATA    
 }
 
