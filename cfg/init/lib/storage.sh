@@ -7,17 +7,17 @@ STORAGEUNIQ=/init-logs/cfg/usr/share/background/blackbird-dark.png
 function storage_blackbird_prepare_init_partition_proc() {
     
     if [ -d /dev/proc ];then
-        swapoff /dev/proc/swap &&
-        yes | lvremove /dev/proc/* &&
-        yes | vgremove proc &&
-        yes | pvremove /dev/mapper/lvm_root  &&
+        swapoff /dev/proc/swap
+        yes | lvremove /dev/proc/*
+        yes | vgremove proc
+        yes | pvremove /dev/mapper/lvm_root
         cryptsetup luksClose /dev/mapper/lvm_root   
     fi
 
      if [ -d /dev/data ];then
-        yes | lvremove /dev/data/* &&
-        yes | vgremove data &&
-        yes | pvremove /dev/mapper/lvm_data &&    
+        yes | lvremove /dev/data/* 
+        yes | vgremove data
+        yes | pvremove /dev/mapper/lvm_data
         cryptsetup luksClose /dev/mapper/lvm_data   
     fi
 }
@@ -256,30 +256,30 @@ function storage_blackbird_mouting_lvm2_partition_data() {
 function setup_storage_blackbird_protocol_fresh() {
 
     ## preparation
-    storage_blackbird_prepare_moun_partition_proc &&
-    storage_blackbird_prepare_init_partition_proc &&
+    storage_blackbird_prepare_moun_partition_proc
+    storage_blackbird_prepare_init_partition_proc
   
     ## create luks
-    storage_blackbird_formats_luks_partition_keys &&
-    storage_blackbird_formats_luks_partition_root &&
-    storage_blackbird_formats_luks_partition_data &&
+    storage_blackbird_formats_luks_partition_keys
+    storage_blackbird_formats_luks_partition_root
+    storage_blackbird_formats_luks_partition_data
 
     ## opening luks
-    storage_blackbird_opening_luks_partition_root &&
-    storage_blackbird_opening_luks_partition_data &&
+    storage_blackbird_opening_luks_partition_root
+    storage_blackbird_opening_luks_partition_data
     
     
     ## prepare lvm2 
-    storage_blackbird_created_lvm2_partition_root &&
-    storage_blackbird_created_lvm2_partition_data &&
+    storage_blackbird_created_lvm2_partition_root
+    storage_blackbird_created_lvm2_partition_data
 
     ## format lvm2 
-    storage_blackbird_formats_lvm2_partition_root &&
-    storage_blackbird_formats_lvm2_partition_data &&
+    storage_blackbird_formats_lvm2_partition_root
+    storage_blackbird_formats_lvm2_partition_data
 
      
     ## mounting lvm2 
-    storage_blackbird_mouting_lvm2_partition_root &&
+    storage_blackbird_mouting_lvm2_partition_root
     storage_blackbird_mouting_lvm2_partition_data 
 }
 
