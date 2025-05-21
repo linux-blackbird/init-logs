@@ -5,7 +5,7 @@ STORAGEUNIQ=$APPS/cfg/init/env/$STORAGERAND
 
 
 ## LUKS
-function storage_admiral_formats_luks_partition_keys() {
+function storage_blackbird_formats_luks_partition_keys() {
 
     if [[ -e /dev/mapper/lvm_keys ]]&&[[ ! -z $DISK_KEYS ]];then
         swapoff /dev/proc/swap 
@@ -22,7 +22,7 @@ function storage_admiral_formats_luks_partition_keys() {
 }
 
 
-function storage_admiral_formats_luks_partition_root() {  
+function storage_blackbird_formats_luks_partition_root() {  
 
     if [[ -e /dev/mapper/lvm_root ]];then
         swapoff /dev/proc/swap 
@@ -37,7 +37,7 @@ function storage_admiral_formats_luks_partition_root() {
 }
 
 
-function storage_admiral_formats_luks_partition_data() {
+function storage_blackbird_formats_luks_partition_data() {
 
      if [[ -e  /dev/mapper/lvm_data ]];then
         yes | lvremove /dev/data/*
@@ -50,7 +50,7 @@ function storage_admiral_formats_luks_partition_data() {
 }
 
 
-function storage_admiral_opening_luks_partition_root() {
+function storage_blackbird_opening_luks_partition_root() {
 
     if [[ ! -e  /dev/mapper/lvm_root ]];then
     
@@ -59,7 +59,7 @@ function storage_admiral_opening_luks_partition_root() {
 }
 
 
-function storage_admiral_opening_luks_partition_data() {
+function storage_blackbird_opening_luks_partition_data() {
     
     if [[ ! -e  /dev/mapper/lvm_data ]];then
 
@@ -69,7 +69,7 @@ function storage_admiral_opening_luks_partition_data() {
 
 
 ## LVM2
-function storage_admiral_created_lvm2_partition_root() {
+function storage_blackbird_created_lvm2_partition_root() {
 
     if [[ $MODE == "install" ]];then
     
@@ -99,7 +99,7 @@ function storage_admiral_created_lvm2_partition_root() {
 }
 
 
-function storage_admiral_created_lvm2_partition_data() {
+function storage_blackbird_created_lvm2_partition_data() {
     
 
     if [[ $MODE == "install" ]];then
@@ -135,7 +135,7 @@ function storage_admiral_created_lvm2_partition_data() {
 }
 
 
-function storage_admiral_formats_lvm2_partition_root() {
+function storage_blackbird_formats_lvm2_partition_root() {
 
     if [[ $MODE == "install" ]];then
         yes | mkfs.vfat -F32 -S 4096 -n BOOT $DISK_BOOT 
@@ -153,7 +153,7 @@ function storage_admiral_formats_lvm2_partition_root() {
 }
 
 
-function storage_admiral_formats_lvm2_partition_data() {
+function storage_blackbird_formats_lvm2_partition_data() {
 
 
     if [[ $MODE == "install" ]];then
@@ -172,7 +172,7 @@ function storage_admiral_formats_lvm2_partition_data() {
 
 
 ## MOUNT
-function storage_admiral_mouting_lvm2_partition_root() {
+function storage_blackbird_mouting_lvm2_partition_root() {
 
     ## mounting root
     mount /dev/proc/root /mnt/ 
@@ -199,7 +199,7 @@ function storage_admiral_mouting_lvm2_partition_root() {
 }
 
 
-function storage_admiral_mouting_lvm2_partition_data() {
+function storage_blackbird_mouting_lvm2_partition_data() {
 
     ## mounting /home
 
@@ -237,54 +237,54 @@ function storage_admiral_mouting_lvm2_partition_data() {
 }
 
 
-function setup_storage_admiral_protocol_fresh() {
+function setup_storage_blackbird_protocol_fresh() {
 
-    storage_admiral_formats_luks_partition_keys
-    storage_admiral_formats_luks_partition_root
-    storage_admiral_formats_luks_partition_data
+    storage_blackbird_formats_luks_partition_keys
+    storage_blackbird_formats_luks_partition_root
+    storage_blackbird_formats_luks_partition_data
 
     ## prepare lvm2 root
-    storage_admiral_opening_luks_partition_root
-    storage_admiral_created_lvm2_partition_root
-    storage_admiral_formats_lvm2_partition_root
-    storage_admiral_mouting_lvm2_partition_root
+    storage_blackbird_opening_luks_partition_root
+    storage_blackbird_created_lvm2_partition_root
+    storage_blackbird_formats_lvm2_partition_root
+    storage_blackbird_mouting_lvm2_partition_root
 
 
     ## prepare lvm2 data
-    storage_admiral_opening_luks_partition_data
-    storage_admiral_created_lvm2_partition_data
-    storage_admiral_formats_lvm2_partition_data
-    storage_admiral_mouting_lvm2_partition_data
+    storage_blackbird_opening_luks_partition_data
+    storage_blackbird_created_lvm2_partition_data
+    storage_blackbird_formats_lvm2_partition_data
+    storage_blackbird_mouting_lvm2_partition_data
 }
 
 
-function setup_storage_admiral_protocol_swipe() {
+function setup_storage_blackbird_protocol_swipe() {
 
     ## opening luks
-    storage_admiral_opening_luks_partition_root
-    storage_admiral_opening_luks_partition_data
+    storage_blackbird_opening_luks_partition_root
+    storage_blackbird_opening_luks_partition_data
 
     ## prepare lvm2 root
-    storage_admiral_formats_lvm2_partition_root
+    storage_blackbird_formats_lvm2_partition_root
 
     ## prepare lvm2 data
-    storage_admiral_formats_lvm2_partition_data
+    storage_blackbird_formats_lvm2_partition_data
 }
 
 
-function setup_storage_admiral_protocol_reset() {
+function setup_storage_blackbird_protocol_reset() {
 
     ## opening luks
-    storage_admiral_opening_luks_partition_root
-    storage_admiral_opening_luks_partition_data
+    storage_blackbird_opening_luks_partition_root
+    storage_blackbird_opening_luks_partition_data
 
     ## prepare lvm2 root
-    storage_admiral_formats_lvm2_partition_root
-    storage_admiral_mouting_lvm2_partition_root
+    storage_blackbird_formats_lvm2_partition_root
+    storage_blackbird_mouting_lvm2_partition_root
     
 
     ## prepare lvm2 data
-    storage_admiral_mouting_lvm2_partition_data
+    storage_blackbird_mouting_lvm2_partition_data
 }
 
 

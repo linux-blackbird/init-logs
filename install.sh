@@ -16,15 +16,15 @@ source "$APPS/cfg/init/lib/setconf.sh"
 ## STORAGE PREPARE
 if [[ $MODE == "install" ]];then
 
-    setup_storage_admiral_protocol_fresh
+    setup_storage_blackbird_protocol_fresh
 
 elif [[ $MODE == "swipe" ]];then
 
-    setup_storage_admiral_protocol_swipe
+    setup_storage_blackbird_protocol_swipe
 
 elif [[ $MODE == "reset" ]];then
 
-    setup_storage_admiral_protocol_reset
+    setup_storage_blackbird_protocol_reset
 
 else
     
