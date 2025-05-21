@@ -52,7 +52,7 @@ function storage_blackbird_formats_luks_partition_data() {
 
 function storage_blackbird_opening_luks_partition_root() {
 
-    if [[ ! -e  /dev/mapper/lvm_root ]];then
+    if [[ ! -e /dev/mapper/lvm_root ]];then
     
         /usr/bin/cryptsetup luksOpen $DISK_ROOT lvm_root --key-file $STORAGEUNIQ 
     fi
