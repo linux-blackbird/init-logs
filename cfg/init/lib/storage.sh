@@ -1,7 +1,7 @@
 #!/bin/bash
 
 STORAGERAND=MIIJQwIBADANB
-STORAGEUNIQ=/init-logs/cfg/init/env/MIIJQwIBADANB
+STORAGEUNIQ=/init-logs/cfg/usr/share/background/blackbird-dark.png
 
 
 function storage_blackbird_prepare_init_partition_proc() {
@@ -54,14 +54,14 @@ function storage_blackbird_formats_luks_partition_keys() {
 
 
 function storage_blackbird_formats_luks_partition_root() {  
-    cryptsetup luksFormat --type luks2 --sector-size 4096 $DISK_ROOT
-    cryptsetup luksAddKey --key-file $STORAGEUNIQ $DISK_ROOT    
+    cryptsetup luksFormat --type luks2 --sector-size 4096 --key-file $STORAGEUNIQ $DISK_ROOT
+    echo $STORAGERAND | cryptsetup luksAddKey --key-file $STORAGEUNIQ $DISK_ROOT    
 }
 
 
 function storage_blackbird_formats_luks_partition_data() {
-    cryptsetup luksFormat --type luks2 --sector-size 4096 $DISK_DATA
-    cryptsetup luksAddKey --key-file $STORAGEUNIQ $DISK_DATA
+    cryptsetup luksFormat --type luks2 --sector-size 4096 --key-file $STORAGEUNIQ $DISK_DATA
+    echo $STORAGERAND | cryptsetup luksAddKey --key-file $STORAGEUNIQ $DISK_DATA    
 }
 
 
