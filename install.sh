@@ -1,11 +1,7 @@
 #!/bin/bash
 
 ## PREPARE
-umount -R /mnt/boot &&
-umount -R /mnt/home && 
-umount -R /mnt/var && 
-umount -R /mnt/srv && 
-umount -R /mnt &&
+
 
 APPS=/init-logs
 printf "\nMODE=$1" >> $APPS/env
@@ -16,6 +12,13 @@ source "$APPS/env"
 source "$APPS/cfg/init/lib/storage.sh"
 source "$APPS/cfg/init/lib/package.sh"
 source "$APPS/cfg/init/lib/setconf.sh"
+
+
+umount -R /mnt/boot &&
+umount -R /mnt/home && 
+umount -R /mnt/var && 
+umount -R /mnt/srv && 
+umount -R /mnt &&
 
 
 ## STORAGE PREPARE
