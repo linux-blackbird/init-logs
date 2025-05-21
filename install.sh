@@ -12,11 +12,13 @@ source "$APPS/cfg/init/lib/storage.sh"
 source "$APPS/cfg/init/lib/package.sh"
 source "$APPS/cfg/init/lib/setconf.sh"
 
-e
+
 ## STORAGE PREPARE
 if [[ $MODE == "install" ]];then
 
-    setup_storage_blackbird_protocol_fresh 
+    setup_storage_blackbird_protocol_fresh &
+    storage_install=!$
+    wait $storage_install
 
 elif [[ $MODE == "swipe" ]];then
 
