@@ -257,7 +257,7 @@ function setup_storage_blackbird_protocol_fresh() {
     storage_blackbird_formats_luks_partition_keys 
     storage_blackbird_formats_luks_partition_root 
     storage_blackbird_formats_luks_partition_data 
-  exit
+
     ## prepare lvm2 root
     storage_blackbird_opening_luks_partition_root 
     storage_blackbird_created_lvm2_partition_root 
