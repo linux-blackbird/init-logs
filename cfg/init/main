@@ -34,8 +34,7 @@ config_package_pack_blackbird_service &&
 
 ### POLICY
 if [[ $SECPOLICY == "CIS-LEVEL-2" ]];then
-    echo 'no policy'
-    #blackbird_cis_level_2_policy_install
+    blackbird_cis_level_2_policy_install
 fi
 
 ### FINISH

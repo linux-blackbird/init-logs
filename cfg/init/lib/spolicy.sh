@@ -39,8 +39,7 @@ function blackbird_cis_level_2_policy_crontab() {
 }
 
 
-
-function blackbird_cis_level_2_policy_services() {
+function blackbird_cis_level_2_policy_service() {
     systemctl mask nfs-server.service
 }
 
