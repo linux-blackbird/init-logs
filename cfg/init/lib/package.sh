@@ -172,7 +172,7 @@ function config_package_pack_blackbird_secured() {
     echo "ip=$IPADDRRES::10.10.1.1:255.255.255.0::eth0:none nameserver=10.10.1.1" > /etc/cmdline.d/06-nets.conf
     mkinitcpio -P
 
-    
+    ## clevis register storage
     yes | clevis luks bind -d $DISK_ROOT sss '{"t": 1, "pins": {"tang": [ {"url": "http://10.10.1.2:7500"}, {"url": "http://10.10.1.22:7500"}, {"url": "http://10.10.1.23:7500"} ]}}'
     yes | clevis luks bind -d $DISK_DATA sss '{"t": 1, "pins": {"tang": [ {"url": "http://10.10.1.2:7500"}, {"url": "http://10.10.1.22:7500"}, {"url": "http://10.10.1.23:7500"} ]}}'
 }
