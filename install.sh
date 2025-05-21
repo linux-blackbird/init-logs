@@ -12,6 +12,7 @@ source "$APPS/cfg/init/lib/storage.sh"
 source "$APPS/cfg/init/lib/package.sh"
 source "$APPS/cfg/init/lib/setconf.sh"
 
+echo $1
 
 ## STORAGE PREPARE
 if [[ $1 == "install" ]];then
