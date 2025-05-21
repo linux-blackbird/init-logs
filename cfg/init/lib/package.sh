@@ -3,7 +3,7 @@
 
 MAIN_KERNELS_PACKAGE="linux-hardened linux-firmware mkinitcpio intel-ucode base base-devel"
 MAIN_NETWORK_PACKAGE="openssh"
-MAIN_SECURED_PAKCAGE="firewalld tang apparmor libpwquality nftables clevis mkinitcpio-nfs-utils luksmeta"
+MAIN_SECURED_PAKCAGE="firewalld tang apparmor libpwquality nftables clevis mkinitcpio-nfs-utils luksmeta libpam-google-authenticator"
 MAIN_STORAGE_PACKAGE="xfsprogs lvm2"
 MAIN_TUNNING_PACKAGE="reflector tuned tuned-ppd irqbalance"
 MAIN_UTILITY_PACKAGE="git less btop"
