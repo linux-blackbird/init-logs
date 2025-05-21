@@ -25,7 +25,7 @@ function storage_admiral_formats_luks_partition_root() {
     fi
 
     echo $STORAGERAND | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --sector-size 4096 $DISK_ROOT
-    echo $STORAGERAND | /usr/bin/cryptsetup luksAddKey --batch-mode --type luks2 --key-file $STORAGEUNIQ --sector-size 4096 $DISK_ROOT
+    echo $STORAGERAND | /usr/bin/cryptsetup luksAddKey --batch-mode --type luks2 --key-file $STORAGEUNIQ $DISK_ROOT
 }
 
 
@@ -37,8 +37,8 @@ function storage_admiral_formats_luks_partition_data() {
         yes | pvremove /dev/mapper/lvm_data   
         yes | /usr/bin/cryptsetup luksClose /dev/mapper/lvm_data   
     fi
-
-    echo $STORAGERAND | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --key-file $STORAGEUNIQ --sector-size 4096 $DISK_DATA 
+    echo $STORAGERAND | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --sector-size 4096 $DISK_DATA
+    echo $STORAGERAND | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --key-file $STORAGEUNIQ $DISK_DATA 
 }
 
 
