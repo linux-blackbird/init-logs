@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## PREPARE
-umount -R /mnt && umount -R /mnt/home && umount -R /mnt/var && umount -R /mnt/srv
+umount -R /mnt/home && umount -R /mnt/var && umount -R /mnt/srv && umount -R /mnt &&
 APPS=/init-logs
 printf "\nMODE=$1" >> $APPS/env
 
