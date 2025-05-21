@@ -14,19 +14,15 @@ source "$APPS/cfg/init/lib/setconf.sh"
 
 
 ## STORAGE PREPARE
-if [[ $MODE == "install" ]];then
+if [[ $1 == "install" ]];then
 
-    setup_storage_blackbird_protocol_fresh &&
-    install_package_main_blackbird_basics &&
-    prepare_configuration_blackbird_basic &&
-    arch-chroot /mnt /bin/bash /init/main
+    setup_storage_blackbird_protocol_fresh
 
-
-elif [[ $MODE == "swipe" ]];then
+elif [[ $1 == "swipe" ]];then
 
     setup_storage_blackbird_protocol_swipe
 
-elif [[ $MODE == "reset" ]];then
+elif [[ $1 == "reset" ]];then
 
     setup_storage_blackbird_protocol_reset
 
@@ -38,7 +34,9 @@ fi
 
 
 ## INSTALL PACKAGE
-
+install_package_main_blackbird_basics
+prepare_configuration_blackbird_basic
 
 
 ## CHROOT INSTALL PACKAGE
+arch-chroot /mnt /bin/bash /init/main
