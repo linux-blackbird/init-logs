@@ -35,8 +35,8 @@ fi
 
 
 ## INSTALL PACKAGE
-install_package_main_blackbird_basics &&
-prepare_configuration_blackbird_basic &&
+#install_package_main_blackbird_basics &&
+#prepare_configuration_blackbird_basic &&
 
 
 ## CHROOT INSTALL PACKAGE
