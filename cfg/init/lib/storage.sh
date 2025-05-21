@@ -110,7 +110,7 @@ function storage_blackbird_created_lvm2_partition_root() {
 function storage_blackbird_created_lvm2_partition_data() {
     
 
-    if [[ $MODE == "install" ];then
+    if [[ $MODE == "install" ]];then
 
         pvcreate /dev/mapper/lvm_data 
         vgcreate data /dev/mapper/lvm_data
