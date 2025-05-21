@@ -27,9 +27,9 @@ function storage_blackbird_prepare_moun_partition_proc() {
 
         umount -R /mnt/boot
         umount -R /mnt/home
-        umount -R /mnt/var 
-        umount -R /mnt/var/log
         umount -R /mnt/var/log/audit
+        umount -R /mnt/var/log
+        umount -R /mnt/var 
         umount -R /mnt/srv/http/intern
         umount -R /mnt/srv/http/public 
         umount -R /mnt
