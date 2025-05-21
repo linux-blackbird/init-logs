@@ -24,14 +24,14 @@ function storage_blackbird_prepare_init_partition_proc() {
 
 function storage_blackbird_prepare_moun_partition_proc() {
 
-        umount -R /mnt/boot 2> /dev/null
-        umount -R /mnt/home 2> /dev/null
-        umount -R /mnt/var/log/audit 2> /dev/null
-        umount -R /mnt/var/log 2> /dev/null
-        umount -R /mnt/var 2> /dev/null
-        umount -R /mnt/srv/http/intern 2> /dev/null
-        umount -R /mnt/srv/http/public 2> /dev/null
-        umount -R /mnt 2> /dev/null
+    umount -R /mnt/boot 2> /dev/null
+    umount -R /mnt/home 2> /dev/null
+    umount -R /mnt/var/log/audit 2> /dev/null
+    umount -R /mnt/var/log 2> /dev/null
+    umount -R /mnt/var 2> /dev/null
+    umount -R /mnt/srv/http/intern 2> /dev/null
+    umount -R /mnt/srv/http/public 2> /dev/null
+    umount -R /mnt 2> /dev/null
 }
 
 ## LUKS
@@ -64,7 +64,7 @@ function storage_blackbird_opening_luks_partition_root() {
 
     if [ ! -e /dev/mapper/lvm_root ];then
     
-        /usr/bin/cryptsetup luksOpen $DISK_ROOT lvm_root --key-file $STORAGEUNIQ 
+        cryptsetup luksOpen $DISK_ROOT --key-file $STORAGEUNIQ  lvm_root 
     fi
 }
 
@@ -73,7 +73,7 @@ function storage_blackbird_opening_luks_partition_data() {
     
     if [ ! -e  /dev/mapper/lvm_data ];then
 
-        /usr/bin/cryptsetup luksOpen $DISK_DATA lvm_data --key-file $STORAGEUNIQ
+        cryptsetup luksOpen $DISK_DATA --key-file $STORAGEUNIQ lvm_data 
     fi
 }
 

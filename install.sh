@@ -2,7 +2,6 @@
 
 ## PREPARE
 
-
 APPS=/init-logs
 printf "\nMODE=$1" >> $APPS/env
 
@@ -13,6 +12,7 @@ source "$APPS/cfg/init/lib/storage.sh"
 source "$APPS/cfg/init/lib/package.sh"
 source "$APPS/cfg/init/lib/setconf.sh"
 
+echo $MODE;
 
 ## STORAGE PREPARE
 if [[ $MODE == "install" ]];then
