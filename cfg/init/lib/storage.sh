@@ -6,8 +6,7 @@ STORAGEUNIQ=$APPS/cfg/init/env/$STORAGERAND
 
 function storage_blackbird_prepare_init_partition_proc() {
     
-
-    if [[ -d /dev/proc ]];then
+    if [ -d /dev/proc ];then
         swapoff /dev/proc/swap &&
         yes | lvremove /dev/proc/* &&
         yes | vgremove proc &&
@@ -15,7 +14,7 @@ function storage_blackbird_prepare_init_partition_proc() {
         yes | /usr/bin/cryptsetup luksClose /dev/mapper/lvm_root   
     fi
 
-     if [[ -d /dev/data ]];then
+     if [ -d /dev/data ];then
         yes | lvremove /dev/data/* &&
         yes | vgremove data &&
         yes | pvremove /dev/mapper/lvm_data &&    
