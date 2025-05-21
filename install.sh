@@ -17,7 +17,7 @@ source "$APPS/cfg/init/lib/setconf.sh"
 if [[ $MODE == "install" ]];then
 
     setup_storage_blackbird_protocol_fresh &
-    storage_install=!$
+    storage_install=$!
     wait $storage_install
 
 elif [[ $MODE == "swipe" ]];then
