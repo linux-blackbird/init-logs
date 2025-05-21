@@ -7,10 +7,18 @@ STORAGEUNIQ=$APPS/cfg/init/env/$STORAGERAND
 ## LUKS
 function storage_admiral_formats_luks_partition_keys() {
 
-    echo 'No directory keys needed'
-    #echo "$STORAGERAND" | cryptsetup luksFormat --batch-mode --type luks2 --key-file $STORAGEUNIQ $DISK_KEYS &
-    #background_pid=$!
-    #wait $background_pid
+    if [[ -e /dev/mapper/lvm_keys ]]&&[[ ! -z $DISK_KEYS ]];then
+        swapoff /dev/proc/swap 
+        yes | lvremove /dev/proc/*
+        yes | vgremove proc
+        yes | pvremove /dev/mapper/lvm_root  
+        yes | /usr/bin/cryptsetup luksClose /dev/mapper/lvm_root   
+
+        echo $STORAGERAND | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --sector-size 4096 $DISK_KEYS
+        echo $STORAGERAND | /usr/bin/cryptsetup luksAddKey --batch-mode --type luks2 --key-file $STORAGEUNIQ $DISK_KEYS
+    else
+         echo 'No directory keys needed'
+    fi
 }
 
 
