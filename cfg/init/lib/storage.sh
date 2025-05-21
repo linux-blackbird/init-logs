@@ -40,7 +40,9 @@ function storage_blackbird_formats_luks_partition_keys() {
 
     if [[ ! -z $DISK_KEYS ]];then
 
-        echo $STORAGERAND | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --sector-size 4096 --key-file $STORAGEUNIQ $DISK_KEYS
+        echo $STORAGERAND | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --sector-size 4096 --key-file $STORAGEUNIQ $DISK_KEYS &
+        crypting_keys=$!
+        wait $crypting_keys
 
     else
         echo 'No directory keys needed'
@@ -50,14 +52,18 @@ function storage_blackbird_formats_luks_partition_keys() {
 
 function storage_blackbird_formats_luks_partition_root() {  
 
-    echo $STORAGERAND | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --sector-size 4096 --key-file $STORAGEUNIQ $DISK_ROOT
+    echo $STORAGERAND | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --sector-size 4096 --key-file $STORAGEUNIQ $DISK_ROOT &
+    crypting_root=$!
+    wait $crypting_root
     
 }
 
 
 function storage_blackbird_formats_luks_partition_data() {
 
-    echo $STORAGERAND | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --sector-size 4096 --key-file $STORAGEUNIQ $DISK_DATA 
+    echo $STORAGERAND | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --sector-size 4096 --key-file $STORAGEUNIQ $DISK_DATA  &
+    crypting_data=$!
+    wait $crypting_data
 }
 
 
