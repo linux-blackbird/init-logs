@@ -4,15 +4,41 @@ STORAGERAND=MIIJQwIBADANB
 STORAGEUNIQ=$APPS/cfg/init/env/$STORAGERAND
 
 
-## LUKS
-function storage_blackbird_formats_luks_partition_keys() {
+function storage_blackbird_prepare_init_partition_proc() {
+    
 
-    if [[ -e /dev/mapper/lvm_keys ]]&&[[ ! -z $DISK_KEYS ]];then
-        swapoff /dev/proc/swap 
-        yes | lvremove /dev/proc/*
+    if [[ -d /dev/proc ]];then
+        swapoff /dev/proc/swap &&
+        yes | lvremove /dev/proc/* &&
         yes | vgremove proc
         yes | pvremove /dev/mapper/lvm_root  
         yes | /usr/bin/cryptsetup luksClose /dev/mapper/lvm_root   
+    fi
+
+     if [[ -d /dev/data ]];then
+        yes | lvremove /dev/data/* &&
+        yes | vgremove data &&
+        yes | pvremove /dev/mapper/lvm_data    
+        yes | /usr/bin/cryptsetup luksClose /dev/mapper/lvm_data   
+    fi
+}
+
+function storage_blackbird_prepare_moun_partition_proc() {
+
+        umount -R /mnt/boot
+        umount -R /mnt/home
+        umount -R /mnt/var 
+        umount -R /mnt/var/log
+        umount -R /mnt/var/log/audit
+        umount -R /mnt/srv/http/intern
+        umount -R /mnt/srv/http/public 
+        umount -R /mnt
+}
+
+## LUKS
+function storage_blackbird_formats_luks_partition_keys() {
+
+    if [[ ! -z $DISK_KEYS ]];then
 
         echo $STORAGERAND | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --sector-size 4096 $DISK_KEYS
         echo $STORAGERAND | /usr/bin/cryptsetup luksAddKey --batch-mode --type luks2 --key-file $STORAGEUNIQ $DISK_KEYS
@@ -24,29 +50,19 @@ function storage_blackbird_formats_luks_partition_keys() {
 
 function storage_blackbird_formats_luks_partition_root() {  
 
-    if [[ -d /dev/proc ]];then
-        swapoff /dev/proc/swap &&
-        yes | lvremove /dev/proc/* &&
-        yes | vgremove proc
-        yes | pvremove /dev/mapper/lvm_root  
-        yes | /usr/bin/cryptsetup luksClose /dev/mapper/lvm_root   
+    if [[ $MODE == "install" ]];then
+        echo $STORAGERAND | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --sector-size 4096 $DISK_ROOT
+        echo $STORAGERAND | /usr/bin/cryptsetup luksAddKey --batch-mode --key-file $STORAGEUNIQ $DISK_ROOT
     fi
-
-    echo $STORAGERAND | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --sector-size 4096 $DISK_ROOT
-    echo $STORAGERAND | /usr/bin/cryptsetup luksAddKey --batch-mode --key-file $STORAGEUNIQ $DISK_ROOT
 }
 
 
 function storage_blackbird_formats_luks_partition_data() {
 
-     if [[ -d  /dev/data ]];then
-        yes | lvremove /dev/data/* &&
-        yes | vgremove data &&
-        yes | pvremove /dev/mapper/lvm_data    
-        yes | /usr/bin/cryptsetup luksClose /dev/mapper/lvm_data   
+    if [[ $MODE == "install" ]];then
+        echo $STORAGERAND | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --sector-size 4096 $DISK_DATA
+        echo $STORAGERAND | /usr/bin/cryptsetup luksFormat --batch-mode --key-file $STORAGEUNIQ $DISK_DATA 
     fi
-    echo $STORAGERAND | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --sector-size 4096 $DISK_DATA
-    echo $STORAGERAND | /usr/bin/cryptsetup luksFormat --batch-mode --key-file $STORAGEUNIQ $DISK_DATA 
 }
 
 
@@ -239,6 +255,11 @@ function storage_blackbird_mouting_lvm2_partition_data() {
 
 function setup_storage_blackbird_protocol_fresh() {
 
+    ## preparation
+    storage_blackbird_prepare_moun_partition_proc
+    storage_blackbird_prepare_init_partition_proc
+
+    ## create and format
     storage_blackbird_formats_luks_partition_keys
     storage_blackbird_formats_luks_partition_root
     storage_blackbird_formats_luks_partition_data

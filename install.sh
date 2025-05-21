@@ -14,20 +14,8 @@ source "$APPS/cfg/init/lib/package.sh"
 source "$APPS/cfg/init/lib/setconf.sh"
 
 
-
-
-
 ## STORAGE PREPARE
 if [[ $MODE == "install" ]];then
-
-    umount -R /mnt/boot
-    umount -R /mnt/home
-    umount -R /mnt/var 
-    umount -R /mnt/var/log
-    umount -R /mnt/var/log/audit
-    umount -R /mnt/srv/http/intern
-    umount -R /mnt/srv/http/public 
-    umount -R /mnt
 
     setup_storage_blackbird_protocol_fresh
 
