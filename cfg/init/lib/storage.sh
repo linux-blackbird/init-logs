@@ -11,14 +11,14 @@ function storage_blackbird_prepare_init_partition_proc() {
         yes | lvremove /dev/proc/* &&
         yes | vgremove proc &&
         yes | pvremove /dev/mapper/lvm_root  &&
-        yes | /usr/bin/cryptsetup luksClose /dev/mapper/lvm_root   
+        cryptsetup luksClose /dev/mapper/lvm_root   
     fi
 
      if [ -d /dev/data ];then
         yes | lvremove /dev/data/* &&
         yes | vgremove data &&
         yes | pvremove /dev/mapper/lvm_data &&    
-        yes | /usr/bin/cryptsetup luksClose /dev/mapper/lvm_data   
+        cryptsetup luksClose /dev/mapper/lvm_data   
     fi
 }
 
@@ -72,7 +72,6 @@ function storage_blackbird_opening_luks_partition_root() {
 function storage_blackbird_opening_luks_partition_data() {
     
     if [ ! -e  /dev/mapper/lvm_data ];then
-
         cryptsetup luksOpen $DISK_DATA --key-file $STORAGEUNIQ lvm_data 
     fi
 }
@@ -81,8 +80,7 @@ function storage_blackbird_opening_luks_partition_data() {
 ## LVM2
 function storage_blackbird_created_lvm2_partition_root() {
 
-    if [ -e /dev/mapper/lvm_root  ];then
-    
+    if [ ! -d /dev/proc ];then
         pvcreate /dev/mapper/lvm_root 
         vgcreate proc /dev/mapper/lvm_root 
     fi
