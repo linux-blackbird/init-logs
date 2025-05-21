@@ -63,7 +63,7 @@ function storage_blackbird_formats_luks_partition_data() {
 
 function storage_blackbird_opening_luks_partition_root() {
 
-    if [[ ! -e /dev/mapper/lvm_root ]];then
+    if [ ! -e /dev/mapper/lvm_root ];then
     
         /usr/bin/cryptsetup luksOpen $DISK_ROOT lvm_root --key-file $STORAGEUNIQ 
     fi
@@ -72,7 +72,7 @@ function storage_blackbird_opening_luks_partition_root() {
 
 function storage_blackbird_opening_luks_partition_data() {
     
-    if [[ ! -e  /dev/mapper/lvm_data ]];then
+    if [ ! -e  /dev/mapper/lvm_data ];then
 
         /usr/bin/cryptsetup luksOpen $DISK_DATA lvm_data --key-file $STORAGEUNIQ
     fi
@@ -82,10 +82,10 @@ function storage_blackbird_opening_luks_partition_data() {
 ## LVM2
 function storage_blackbird_created_lvm2_partition_root() {
 
-    if [[ $1 == "install" ]];then
+    if [ ! -e /dev/mapper/lvm_root  ];then
     
-        /usr/bin/pvcreate /dev/mapper/lvm_root 
-        /usr/bin/vgcreate proc /dev/mapper/lvm_root 
+        pvcreate /dev/mapper/lvm_root 
+        vgcreate proc /dev/mapper/lvm_root 
     fi
 
     if [[ ! -e /dev/proc/root ]];then
