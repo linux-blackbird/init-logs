@@ -183,13 +183,14 @@ function storage_blackbird_formats_lvm2_partition_data() {
 function storage_blackbird_mouting_lvm2_partition_root() {
 
     ## mounting root
-    mount /dev/proc/root /mnt/ 
+    mount /dev/proc/root /mnt
 
 
     ## mounting /boot
-    mkdir /mnt/boot 
-    mount -o uid=0,gid=0,fmask=0077,dmask=0077 $DISK_BOOT /mnt/boot 
+    mkdir /mnt/boot
     rm -fr /mnt/boot/* > /dev/null
+    mount -o uid=0,gid=0,fmask=0077,dmask=0077 $DISK_BOOT /mnt/boot 
+    
 
 
     ## var partition
