@@ -88,7 +88,7 @@ function storage_blackbird_opening_luks_partition_data() {
 ## LVM2
 function storage_blackbird_created_lvm2_partition_root() {
 
-    if [ ! -e /dev/mapper/lvm_root  ];then
+    if [ -e /dev/mapper/lvm_root  ];then
     
         pvcreate /dev/mapper/lvm_root 
         vgcreate proc /dev/mapper/lvm_root 
