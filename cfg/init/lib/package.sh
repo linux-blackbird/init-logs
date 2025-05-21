@@ -163,8 +163,8 @@ function config_package_pack_blackbird_secured() {
     mkinitcpio -P
 
     ## clevis register storage
-    yes | clevis luks bind -k /usr/share/background/blackbird-dark.png -d $DISK_ROOT sss '{"t": 1, "pins": {"tang": [ {"url": "http://10.10.1.2:7500"}, {"url": "http://10.10.1.22:7500"}, {"url": "http://10.10.1.23:7500"} ]}}'
-    yes | clevis luks bind -k /usr/share/background/blackbird-dark.png -d $DISK_DATA sss '{"t": 1, "pins": {"tang": [ {"url": "http://10.10.1.2:7500"}, {"url": "http://10.10.1.22:7500"}, {"url": "http://10.10.1.23:7500"} ]}}'
+    clevis luks bind -y -k /usr/share/background/blackbird-dark.png -d $DISK_ROOT sss '{"t": 1, "pins": {"tang": [ {"url": "http://10.10.1.2:7500"}, {"url": "http://10.10.1.22:7500"}, {"url": "http://10.10.1.23:7500"} ]}}'
+    clevis luks bind -y -k /usr/share/background/blackbird-dark.png -d $DISK_DATA sss '{"t": 1, "pins": {"tang": [ {"url": "http://10.10.1.2:7500"}, {"url": "http://10.10.1.22:7500"}, {"url": "http://10.10.1.23:7500"} ]}}'
 }
 
 
