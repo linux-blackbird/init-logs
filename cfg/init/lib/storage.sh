@@ -85,22 +85,22 @@ function storage_blackbird_created_lvm2_partition_root() {
         vgcreate proc /dev/mapper/lvm_root 
     fi
 
-    if [[ ! -e /dev/proc/root ]];then
+    if [ ! -e /dev/proc/root ];then
 
         yes | /usr/bin/lvcreate -L 20G proc -n root 
     fi
 
-    if [[ ! -e /dev/proc/vars ]];then
+    if [ ! -e /dev/proc/vars ];then
 
         yes | /usr/bin/lvcreate -L 5G proc -n vars 
     fi
 
-    if [[ ! -e /dev/proc/vtmp ]];then
+    if [ ! -e /dev/proc/vtmp ];then
 
         yes | /usr/bin/lvcreate -L 1G proc -n vtmp 
     fi
 
-    if [[ ! -e /dev/proc/swap ]];then
+    if [ ! -e /dev/proc/swap ];then
 
         yes | /usr/bin/lvcreate -l100%FREE proc -n swap
     fi
@@ -110,33 +110,33 @@ function storage_blackbird_created_lvm2_partition_root() {
 function storage_blackbird_created_lvm2_partition_data() {
     
 
-    if [[ $MODE == "install" ]];then
+    if [[ $MODE == "install" ];then
 
         pvcreate /dev/mapper/lvm_data 
         vgcreate data /dev/mapper/lvm_data
     fi
 
-    if [[ ! -e /dev/data/home ]];then
+    if [ ! -e /dev/data/home ];then
 
         yes | lvcreate -L 20G data -n home 
     fi
 
-    if [[ ! -e /dev/data/vlog ]];then
+    if [ ! -e /dev/data/vlog ];then
 
         yes | lvcreate -L 50G data -n vlog
     fi
 
-    if [[ ! -e /dev/data/vaud ]];then
+    if [ ! -e /dev/data/vaud ];then
 
         yes | lvcreate -L 20G data -n vaud
     fi
 
-    if [[ ! -e /dev/data/docs ]];then
+    if [ ! -e /dev/data/docs ];then
 
         yes | lvcreate -L 20G data -n docs
     fi
 
-    if [[ ! -e /dev/data/note ]];then
+    if [ ! -e /dev/data/note ];then
 
         yes | lvcreate -L 20G data -n note 
     fi
