@@ -50,7 +50,7 @@ function storage_blackbird_formats_luks_partition_keys() {
 
 function storage_blackbird_formats_luks_partition_root() {  
 
-    if [[ $MODE == "install" ]];then
+    if [[ $1 == "install" ]];then
 
         echo $STORAGERAND | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --sector-size 4096 $DISK_ROOT &&
         echo $STORAGERAND | /usr/bin/cryptsetup luksAddKey --batch-mode --key-file $STORAGEUNIQ $DISK_ROOT
@@ -60,7 +60,7 @@ function storage_blackbird_formats_luks_partition_root() {
 
 function storage_blackbird_formats_luks_partition_data() {
 
-    if [[ $MODE == "install" ]];then
+    if [[ $1 == "install" ]];then
         echo $STORAGERAND | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --sector-size 4096 $DISK_DATA &&
         echo $STORAGERAND | /usr/bin/cryptsetup luksFormat --batch-mode --key-file $STORAGEUNIQ $DISK_DATA 
     fi
