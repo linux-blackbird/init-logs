@@ -3,7 +3,7 @@
 ## PREPARE
 
 APPS=/init-logs
-printf "\nMODE=$1" >> $APPS/env
+echo "MODE=$1" >> $APPS/env
 
 
 ## DECLARE EVN
