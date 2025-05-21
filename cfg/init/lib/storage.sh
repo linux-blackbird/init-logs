@@ -88,7 +88,7 @@ function storage_blackbird_opening_luks_partition_data() {
 ## LVM2
 function storage_blackbird_created_lvm2_partition_root() {
 
-    if [[ $MODE == "install" ]];then
+    if [[ $1 == "install" ]];then
     
         /usr/bin/pvcreate /dev/mapper/lvm_root 
         /usr/bin/vgcreate proc /dev/mapper/lvm_root 
@@ -257,25 +257,25 @@ function storage_blackbird_mouting_lvm2_partition_data() {
 function setup_storage_blackbird_protocol_fresh() {
 
     ## preparation
-    storage_blackbird_prepare_moun_partition_proc &&
-    storage_blackbird_prepare_init_partition_proc &&
+    storage_blackbird_prepare_moun_partition_proc 
+    storage_blackbird_prepare_init_partition_proc 
 
     ## create and format
-    storage_blackbird_formats_luks_partition_keys &&
-    storage_blackbird_formats_luks_partition_root &&
-    storage_blackbird_formats_luks_partition_data &&
+    storage_blackbird_formats_luks_partition_keys 
+    storage_blackbird_formats_luks_partition_root 
+    storage_blackbird_formats_luks_partition_data 
 
     ## prepare lvm2 root
-    storage_blackbird_opening_luks_partition_root &&
-    storage_blackbird_created_lvm2_partition_root &&
-    storage_blackbird_formats_lvm2_partition_root &&
-    storage_blackbird_mouting_lvm2_partition_root &&
+    storage_blackbird_opening_luks_partition_root 
+    storage_blackbird_created_lvm2_partition_root 
+    storage_blackbird_formats_lvm2_partition_root 
+    storage_blackbird_mouting_lvm2_partition_root 
 
 
     ## prepare lvm2 data
-    storage_blackbird_opening_luks_partition_data &&
-    storage_blackbird_created_lvm2_partition_data &&
-    storage_blackbird_formats_lvm2_partition_data &&
+    storage_blackbird_opening_luks_partition_data 
+    storage_blackbird_created_lvm2_partition_data 
+    storage_blackbird_formats_lvm2_partition_data 
     storage_blackbird_mouting_lvm2_partition_data 
 }
 
