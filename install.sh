@@ -14,15 +14,17 @@ source "$APPS/cfg/init/lib/package.sh"
 source "$APPS/cfg/init/lib/setconf.sh"
 
 
-umount -R /mnt/boot &&
-umount -R /mnt/home && 
-umount -R /mnt/var && 
-umount -R /mnt/srv && 
-umount -R /mnt &&
+
 
 
 ## STORAGE PREPARE
 if [[ $MODE == "install" ]];then
+
+    umount -R /mnt/boot
+    umount -R /mnt/home 
+    umount -R /mnt/var 
+    umount -R /mnt/srv 
+    umount -R /mnt
 
     setup_storage_blackbird_protocol_fresh
 
