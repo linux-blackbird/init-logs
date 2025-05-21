@@ -15,10 +15,15 @@ function storage_admiral_formats_luks_partition_keys() {
 
 
 function storage_admiral_formats_luks_partition_root() {  
-    
+
+    if [[ -e  /dev/mapper/lvm_root ]];then
+        yes | lvremove /dev/proc/*
+        yes | vgremove proc
+        yes | pvremove /dev/mapper/lvm_root   
+    fi
+
     echo $STORAGERAND | /usr/bin/cryptsetup luksFormat --batch-mode --type luks2 --sector-size 4096 $DISK_ROOT
     echo $STORAGERAND | /usr/bin/cryptsetup luksAddKey --batch-mode --type luks2 --key-file $STORAGEUNIQ --sector-size 4096 $DISK_ROOT
-    
 }
 
 
