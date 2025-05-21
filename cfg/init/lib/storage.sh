@@ -10,15 +10,15 @@ function storage_blackbird_prepare_init_partition_proc() {
     if [[ -d /dev/proc ]];then
         swapoff /dev/proc/swap &&
         yes | lvremove /dev/proc/* &&
-        yes | vgremove proc
-        yes | pvremove /dev/mapper/lvm_root  
+        yes | vgremove proc &&
+        yes | pvremove /dev/mapper/lvm_root  &&
         yes | /usr/bin/cryptsetup luksClose /dev/mapper/lvm_root   
     fi
 
      if [[ -d /dev/data ]];then
         yes | lvremove /dev/data/* &&
         yes | vgremove data &&
-        yes | pvremove /dev/mapper/lvm_data    
+        yes | pvremove /dev/mapper/lvm_data &&    
         yes | /usr/bin/cryptsetup luksClose /dev/mapper/lvm_data   
     fi
 }
