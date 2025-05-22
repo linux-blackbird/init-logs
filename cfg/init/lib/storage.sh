@@ -28,9 +28,9 @@ function storage_blackbird_prepare_moun_partition_proc() {
     umount -R /mnt/home 2> /dev/null
     umount -R /mnt/var/log/audit 2> /dev/null
     umount -R /mnt/var/log 2> /dev/null
-    umount -R /mnt/var 2> /dev/null
-    umount -R /mnt/srv/http/intern 2> /dev/null
-    umount -R /mnt/srv/http/public 2> /dev/null
+    umount -R /mnt/var/tmp 2> /dev/null
+    umount -R /mnt/var/lib/libvirt/images 2> /dev/null
+    umount -R /mnt/var/lib/libvirt/containers 2> /dev/null
     umount -R /mnt 2> /dev/null
 }
 
@@ -100,6 +100,16 @@ function storage_blackbird_created_lvm2_partition_root() {
         yes | /usr/bin/lvcreate -L 1G proc -n vtmp 
     fi
 
+    if [ ! -e /dev/proc/vlog ];then
+
+        yes | lvcreate -L 50G data -n vlog
+    fi
+
+    if [ ! -e /dev/proc/vaud ];then
+
+        yes | lvcreate -L 20G data -n vaud
+    fi
+
     if [ ! -e /dev/proc/swap ];then
 
         yes | /usr/bin/lvcreate -l100%FREE proc -n swap
@@ -121,24 +131,14 @@ function storage_blackbird_created_lvm2_partition_data() {
         yes | lvcreate -L 20G data -n home 
     fi
 
-    if [ ! -e /dev/data/vlog ];then
+    if [ ! -e /dev/data/pods ];then
 
-        yes | lvcreate -L 50G data -n vlog
+        yes | lvcreate -L 20G data -n pods
     fi
 
-    if [ ! -e /dev/data/vaud ];then
+    if [ ! -e /dev/data/host ];then
 
-        yes | lvcreate -L 20G data -n vaud
-    fi
-
-    if [ ! -e /dev/data/docs ];then
-
-        yes | lvcreate -L 20G data -n docs
-    fi
-
-    if [ ! -e /dev/data/note ];then
-
-        yes | lvcreate -L 20G data -n note 
+        yes | lvcreate -l 100%FREE data -n host 
     fi
 }
 
@@ -152,6 +152,10 @@ function storage_blackbird_formats_lvm2_partition_root() {
     yes | mkfs.ext4 -b 4096 /dev/proc/root 
     
     yes | mkfs.ext4 -b 4096 /dev/proc/vars
+
+    yes | mkfs.ext4 -b 4096 /dev/proc/vlog 
+
+    yes | mkfs.ext4 -b 4096 /dev/proc/vaud 
     
     yes | mkfs.ext4 -b 4096 /dev/proc/vtmp
 
@@ -168,13 +172,9 @@ function storage_blackbird_formats_lvm2_partition_data() {
 
         yes | mkfs.ext4 -b 4096 /dev/data/home
         
-        yes | mkfs.ext4 -b 4096 /dev/data/vlog 
-
-        yes | mkfs.ext4 -b 4096 /dev/data/vaud 
-
-        yes | mkfs.ext4 -b 4096 /dev/data/note
+        yes | mkfs.ext4 -b 4096 /dev/data/pods
         
-        yes | mkfs.ext4 -b 4096 /dev/data/docs
+        yes | mkfs.ext4 -b 4096 /dev/data/host
     fi
 }
 
@@ -207,11 +207,21 @@ function storage_blackbird_mouting_lvm2_partition_root() {
     fi
     mount -o rw,nosuid,nodev,noexec,relatime /dev/proc/vtmp /mnt/var/tmp 
 
+    ## var/log partition
+    if [ ! -d /mnt/var/log  ];then
+        mkdir /mnt/var/log
+    fi
+    mount -o rw,nosuid,nodev,noexec,relatime /dev/proc/vlog /mnt/var/log 
+
+    ## var/log/audit partition
+    if [ ! -d /mnt/var/log/audit  ];then
+        mkdir /mnt/var/log/audit 
+    fi
+    mount -o rw,nosuid,nodev,noexec,relatime /dev/proc/vaud /mnt/var/log/audit
+
 
     ## swap partition
     swapon /dev/proc/swap 
-
-    echo 'proc root mounting done'
 }
 
 
@@ -225,31 +235,19 @@ function storage_blackbird_mouting_lvm2_partition_data() {
     mount -o rw,nosuid,nodev,noexec,relatime /dev/data/home /mnt/home 
 
 
-    ## var/log partition
-    if [ ! -d /mnt/var/log  ];then
-        mkdir /mnt/var/log
+    ## srv/http/public partition
+    if [ ! -d /mnt/var/lib/containers/ ];then
+        mkdir /mnt/var/lib/ /mnt/var/lib/containers/
     fi
-    mount -o rw,nosuid,nodev,noexec,relatime /dev/data/vlog /mnt/var/log 
-
-    ## var/log/audit partition
-    if [ ! -d /mnt/var/log/audit  ];then
-        mkdir /mnt/var/log/audit 
-    fi
-    mount -o rw,nosuid,nodev,noexec,relatime /dev/data/vaud /mnt/var/log/audit
+    mount -o rw,nosuid,nodev,relatime /dev/data/pods /mnt/var/lib/containers/
 
 
     ## srv/http/public partition
-    if [ ! -d /mnt/srv/http/public/ ];then
-        mkdir /mnt/srv/ /mnt/srv/http/ /mnt/srv/http/public/
+    if [ ! -d /mnt/lib/libvirt/images/ ];then
+        mkdir /mnt/var/lib/libvirt/ /mnt/var/lib/libvirt/images/
     fi
-    mount -o rw,nosuid,nodev,relatime /dev/data/docs /mnt/srv/http/public
-
-
-    ## srv/http/public partition
-    if [ ! -d /mnt/srv/http/intern/ ];then
-        mkdir /mnt/srv/http/intern/
-    fi
-    mount -o rw,nosuid,nodev,relatime /dev/data/note /mnt/srv/http/intern
+    mount -o rw,nosuid,nodev,relatime /dev/data/host /mnt/var/lib/libvirt/images/
+  
 }
 
 

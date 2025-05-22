@@ -10,6 +10,11 @@ function prepare_configuration_blackbird_basic() {
     cp /etc/systemd/network/* /mnt/etc/systemd/network/
     cp -fr $(pwd)/init-logs/cfg/* /mnt/
     cp -f  $(pwd)/init-logs/env /mnt/init/env/data
+
+    mkdir /etc/skel/.themes &&  mkdir /etc/skel/.icons
+    sudo cp -r /usr/share/themes/blackbird /etc/skel/.themes/
+    sudo cp -r /usr/share/icons/Papirus-Dark /etc/skel/.icons/
+
 }
 
 
@@ -45,16 +50,33 @@ function register_user_masters_blackbird_basic() {
 }
 
 
-function register_user_siteman_blackbird_basic() {
+function register_user_vhosted_blackbird_basic() {
 
     shadow='$6$RFZDrC7V2WNkSHBG$JRGbBdl3hAcn4nn85/uAe5q8bz./ieEML/rU34ZQGoptw9ZL8E29ohIfC9wx.OgpgEIASdhGKFVbLGPBz.Jes1'
 
-    useradd -d /srv/http/ -p $shadow www
-    setfacl -Rm u:www:rwx /srv/http/
+    useradd -d /var/lib/libvirt/images/ -p $shadow virsz
+    setfacl -Rm u:virsz:rwx /var/lib/libvirt/images/
+    usermod -a -G libvirt virsz
+}
+
+
+function register_user_podlets_blackbird_basic() {
+
+    shadow='$6$RFZDrC7V2WNkSHBG$JRGbBdl3hAcn4nn85/uAe5q8bz./ieEML/rU34ZQGoptw9ZL8E29ohIfC9wx.OgpgEIASdhGKFVbLGPBz.Jes1'
+
+    useradd -d /var/lib/containers/ -p $shadow pods
+    setfacl -Rm u:pods:rwx /var/lib/containers/
 }
 
 
 function register_user_adminer_blackbird_basic() {
     shadow='$6$RFZDrC7V2WNkSHBG$JRGbBdl3hAcn4nn85/uAe5q8bz./ieEML/rU34ZQGoptw9ZL8E29ohIfC9wx.OgpgEIASdhGKFVbLGPBz.Jes1'
     useradd -m -p $shadow lektor
+}
+
+
+function register_user_officer_blackbird_basic() {
+    shadow='$6$RFZDrC7V2WNkSHBG$JRGbBdl3hAcn4nn85/uAe5q8bz./ieEML/rU34ZQGoptw9ZL8E29ohIfC9wx.OgpgEIASdhGKFVbLGPBz.Jes1'
+    useradd -m -p $shadow $USERNAME
+    usermod -a -G libvirt $USERNAME
 }
